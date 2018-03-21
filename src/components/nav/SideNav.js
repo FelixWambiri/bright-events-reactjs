@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-
 import FeaturedPlayList from 'material-ui-icons/FeaturedPlayList';
 import { Divider, List, ListItem, ListItemIcon, ListItemText
 } from "material-ui";
-import {Link, NavLink} from "react-router-dom";
+import {Link} from "react-router-dom";
 class SideNav extends Component {
     render() {
         return (

@@ -4,7 +4,7 @@ import AddEventForm from "./AddEventForm";
 import {saveEvent} from "../../../actions/new_event";
 import {connect} from "react-redux";
 import {Button, CircularProgress, Snackbar} from "material-ui";
-import {Link, Redirect} from "react-router-dom";
+import {Link} from "react-router-dom";
 import AuthService from "../../../helpers/AuthService";
 
 class NewEventContainer extends Component {

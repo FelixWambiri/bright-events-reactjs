@@ -1,6 +1,4 @@
-import {
-    REQUEST_FAILED, REQUEST_STARTED, SAVE_EVENT_FAILED,
-    SAVE_EVENT_SUCCESS
+import {REQUEST_STARTED,SAVE_EVENT_SUCCESS
 } from "../constants/action_types";
 
 import ApiService from "../helpers/ApiService";

@@ -5,41 +5,25 @@ import {fetchSingleEvent} from "../../../actions/events";
 import MoreVertIcon from "material-ui-icons/MoreVert"
 import moment from "moment"
 import {
-    Avatar, Button,
-    Card, CardActions, CardContent, CardHeader, CardMedia, Divider, Grid, IconButton,
-    Typography, withStyles
+    Avatar,
+    Card, CardActions, CardContent, CardHeader, Divider, Grid, IconButton,
+    Typography,
 } from "material-ui";
 import {Link} from "react-router-dom";
-import Gravatar from "react-gravatar"
 
-
-const styles = {
-    card: {
-        maxWidth: 300,
-        marginLeft:20,
-        maxHeight:300,
-        borderRadius:3
-    },
-    media: {
-        height: 50,
-        backgroundColor:"#E64A19"
-    },
-};
 class Show extends Component {
 
     componentDidMount() {
-    }
-    setMapElementReference(elementRef){
-        this.mapElement = elementRef
+        this.props.fetchSingleEvent()
     }
 
     render() {
         const {event} = this.props;
         return (
-            <Grid container  >
-                <Grid item md={12} >
+            <Grid className="ui fluid"  >
+                <Grid>
                     <div style={{margin:10}} >
-                        <Grid xs={12} md={12}>
+                        <Grid >
                             <Card className="">
                                 <CardHeader
                                     avatar={
@@ -47,12 +31,12 @@ class Show extends Component {
                                             R
                                         </Avatar>
                                     }
-                                    style={{backgroundColor:"#ff4081",color:"white"}}
-                                    action={
-                                        <IconButton>
-                                            <MoreVertIcon />
-                                        </IconButton>
-                                    }
+                                    style={{backgroundColor:"#b7b3b9",color:"white"}}
+                                    // action={
+                                    //     <IconButton>
+                                    //         <MoreVertIcon />
+                                    //     </IconButton>
+                                    // }
                                     title={event.name}
                                     subheader={`Happening ${ moment(event.start_date).fromNow()}`}
                                 />
@@ -63,11 +47,10 @@ class Show extends Component {
                                         {event.description}
                                     </Typography>
 
-                                    {/*<div className="map" ref={this.setMapElementReference}/>*/}
 
                                 </CardContent>
                                 <CardActions>
-                                    <Link  to={`events/show/$3`} size="small" color="primary">
+                                    <Link  to='#/' size="small" color="info">
                                         Learn More
                                     </Link>
                                 </CardActions>
@@ -86,7 +69,9 @@ Show.propTypes = {
     event:PropTypes.object.isRequired
 };
 
-const mapDispatchToProps = (dispatch,ownProps) =>dispatch(fetchSingleEvent(ownProps.match.params.id));
+const mapDispatchToProps = (dispatch,ownProps) =>({
+    fetchSingleEvent:()=>dispatch(fetchSingleEvent(ownProps.match.params.id))
+})
 
 const mapStateToProps = (state) =>{
     return {

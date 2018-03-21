@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Link, Redirect} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import {doSignup} from "../../actions/signup.actions";
 
@@ -98,6 +98,9 @@ const mapDispatchToProps = dispatch=>({
 })
 
 
-Signup.propTypes = {};
+Signup.propTypes = {
+    loading:PropTypes.bool,
+    error:PropTypes.string
+};
 
 export default connect(mapStateToProps,mapDispatchToProps)(Signup);

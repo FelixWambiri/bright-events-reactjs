@@ -1,6 +1,6 @@
 import React from "react";
 import EventsList from "./events/event-list/EventsList";
-import {Button, CircularProgress, Grid, Icon, IconButton, Snackbar} from "material-ui";
+import {Button, CircularProgress, Snackbar} from "material-ui";
 import {connect} from "react-redux";
 import {fetchEvents} from "../actions/events";
 import "./../assets/css/bootstrap-grid.css"

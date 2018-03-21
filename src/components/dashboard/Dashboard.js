@@ -46,7 +46,9 @@ class Dashboard extends Component {
     }
 }
 
-Dashboard.propTypes = {};
+Dashboard.propTypes = {
+    data:PropTypes.object
+};
 Dashboard.defaultProps = {};
 
 export default Dashboard;

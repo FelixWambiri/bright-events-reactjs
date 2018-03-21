@@ -1,5 +1,5 @@
 import {
-    AppBar, Drawer, IconButton, Menu, MenuItem, MenuList, Toolbar, Typography,
+    AppBar, Drawer, IconButton, Menu, MenuItem, Toolbar, Typography,
     withStyles
 } from "material-ui";
 import Fade from 'material-ui/transitions/Fade';

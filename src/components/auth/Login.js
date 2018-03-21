@@ -86,6 +86,8 @@ const mapDispatchToProps = dispatch=>({
 
 let WithStyles = withStyles(auth_styles)(Login);
 
-Login.propTypes = {};
+Login.propTypes = {
+    history:PropTypes.object
+};
 
 export default connect(mapStateToProps,mapDispatchToProps)(WithStyles);

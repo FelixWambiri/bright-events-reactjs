@@ -1,8 +1,6 @@
 import {LOGIN_SUCCESS, REQUEST_FAILED, REQUEST_LOGIN} from "../constants/action_types";
 import ApiService from "../helpers/ApiService";
 import history from "./../helpers/history"
-
-const loginURL = "http://localhost:5000/api/v1/auth/login";
 const requestLogin = ()=>({
     type:REQUEST_LOGIN
 });

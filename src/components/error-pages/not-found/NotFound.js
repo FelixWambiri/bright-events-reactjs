@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import lost from "../../../assets/img/404-1.jpg"
 import {
     Button, Card, CardActions, CardContent, CardMedia, Divider, Typography,
     withStyles
 } from "material-ui";
 import Home from "material-ui-icons/Home"
-import Redirect from "material-ui-icons/Router"
 import styles from "./styles"
 import {Link} from "react-router-dom";
 class NotFound extends Component {
