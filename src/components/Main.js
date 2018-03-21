@@ -2,7 +2,6 @@ import React from "react";
 import {Route, Switch} from "react-router";
 import Home from "./Home";
 import Show from "./events/show/Show";
-import AddEventForm from "./events/add-event/AddEventForm";
 import NotFound from "./error-pages/not-found/NotFound";
 import NewEventContainer from "./events/add-event/NewEventContainer";
 import Signup from "./auth/Signup";
