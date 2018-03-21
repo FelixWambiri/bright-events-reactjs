@@ -21,14 +21,7 @@ class Login extends Component {
     handleChange(e){
         e.preventDefault();
         const {username,password} = this.refs;
-        this.props.doLogin(username.value,password.value).then(
-            ()=>{
-                const {error} = this.props ;
-                if (error === undefined){
-                    this.props.history.replace('/dashboard')
-                }
-            }
-        );
+        this.props.doLogin(username.value,password.value);
     }
 
     render() {
