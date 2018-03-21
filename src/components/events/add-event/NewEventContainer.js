@@ -23,15 +23,7 @@ class NewEventContainer extends Component {
 
 
     submit(event){
-        const {history} = this.props
-        this.props.saveEvent(event,history).then( ()=>{
-            console.log("we are here ", this.props.error)
-            const {error} = this.props ;
-            if (error === undefined){
-                this.props.history.replace('/dashboard')
-            }
-            this.props.history.replace('/')
-        })
+        this.props.saveEvent(event);
     }
 
     render() {
