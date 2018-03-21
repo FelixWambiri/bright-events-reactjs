@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import './App.css';
 import Header from "./components/nav/Header";
 import Main from "./components/Main";
-import {BrowserRouter as Router} from "react-router-dom"
+import { Router} from "react-router-dom"
+import history from "./helpers/history"
 class App extends Component {
   render() {
     return (
         <div className="container">
-            <Router>
+            <Router history={history}>
                 <div>
                     <Header/>
                     <Main/>
