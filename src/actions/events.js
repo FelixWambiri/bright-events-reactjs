@@ -1,5 +1,5 @@
 import {
-    FETCH_EVENTS_FAILED, FETCH_EVENTS_REQUEST, FETCH_EVENTS_SUCCESS,SHOW_SINGLE_EVENT
+    FETCH_EVENTS_FAILED, FETCH_EVENTS_REQUEST, FETCH_EVENTS_SUCCESS, REQUEST_FAILED, SHOW_SINGLE_EVENT
 } from "../constants/action_types";
 import fetch from "cross-fetch"
 export const requestEvents = ()=>({
@@ -23,7 +23,7 @@ const receiveSingleEvent = event=>
     event
 });
 export const eventFetchFailed = error =>({
-    type:FETCH_EVENTS_FAILED,
+    type:REQUEST_FAILED,
     error
 });
 
