@@ -1,7 +1,6 @@
 import decode from "jwt-decode"
 export default class AuthService{
-
-    loggedIn(){
+     loggedIn(){
         const token = this.getToken();
         return !!token && !this.isTokenExpired(token)
     }
@@ -11,11 +10,11 @@ export default class AuthService{
     }
 
 
-    getToken(){
+     getToken(){
         return localStorage.getItem("token")
     }
 
-    isTokenExpired(token) {
+     isTokenExpired(token) {
         try {
             const decoded = decode(token);
             if (decoded.exp < Date.now() / 1000) {
