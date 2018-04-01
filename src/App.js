@@ -15,8 +15,6 @@ class App extends Component {
                 </div>
             </Router>
         </div>
-
-
     );
   }
 }
