@@ -2,10 +2,10 @@ import React from "react";
 import {withStyles} from "material-ui";
 import {formStyles} from "./styles";
 
-const EventField = ({classes,input,type,placeholder,meta:{touched,dirty,error}})=> {
+const EventField = ({classes,input,type,placeholder,maxlength,meta:{touched,dirty,error}})=> {
     return (
         <div className={`field ${touched?error?'error':'':''}`}>
-            <input {...input} type={type} placeholder={placeholder}/>
+            <input {...input} type={type} placeholder={placeholder} maxlength={maxlength}/>
             {touched &&
             ((error && <span className={classes.errorMessage}>{error}</span>))}
         </div>
