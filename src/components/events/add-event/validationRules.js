@@ -1,3 +1,5 @@
+import moment from "moment";
+
 const validate = values => {
     const errors = {}
     console.log("values", values.name)
@@ -12,15 +14,34 @@ const validate = values => {
         if (!values.start_date) {
             errors.start_date = 'Start date Is Required'
         }
+
+
         if (!values.end_date) {
             errors.end_date = 'End Date Is Required'
         }
+
+    if (values.start_date){
+        var start = moment(values.start_date);
+        var end = moment(values.end_date);
+        var now = moment();
+
+        if (now > start) {
+            errors.start_date = "You Must Select a Future Date"
+        } else {
+            if(end< start){
+                errors.end_date = "end date can not be less than start date"
+            }
+        }
+    }
         if (!values.price){
         errors.price = "Price is required dude"
         }
         if (!values.description){
         errors.description = "Description required dude"
+        }else if (values.description.length > 200){
+        errors.description = "Maximum length for your description is 200 characters"
         }
+
         if (!values.category){
         errors.category = "Category is Required required dude"
         }
