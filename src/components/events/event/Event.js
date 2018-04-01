@@ -9,20 +9,20 @@ import {Link} from "react-router-dom";
 
 const styles = {
     card: {
-        maxWidth: 400,
+        maxWidth: 500,
         marginLeft:20,
         maxHeight:300,
-        borderRadius:7
+        borderRadius:7,
     },
     media: {
-        height: 100,
+        height: 50,
         backgroundColor:"#E64A19"
     },
 };
 const Event = (props) =>{
     const {classes,name,description,id} = props;
     return (
-        <Grid item>
+        <Grid item md={4}>
             <Card className={classes.card}>
                 <div
                     className={classes.media}
