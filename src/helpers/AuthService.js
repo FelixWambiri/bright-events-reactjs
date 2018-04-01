@@ -9,7 +9,9 @@ export default class AuthService{
         localStorage.removeItem('token');
     }
 
-
+    getUser(){
+         return decode(this.getToken())
+    }
      getToken(){
         return localStorage.getItem("token")
     }
