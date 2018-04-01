@@ -2,13 +2,15 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import AuthService from "../../helpers/AuthService";
 import {Bar} from "react-chartjs-2"
+import {fetchReports} from "../../actions/reports.actions";
+import {connect} from "react-redux";
 
 const options ={}
-const data = {
-    labels: ["Weddings", "Graduation", "SendOff"],
+const parsedData = data => ({
+    labels: data.categories,
     datasets: [{
         label: 'Number of Attendees',
-        data: [12, 19, 3],
+        data: data.values,
         backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',
@@ -21,7 +23,7 @@ const data = {
         ],
         borderWidth: 1
     }]
-}
+})
 
 class Dashboard extends Component {
     constructor(props) {
@@ -36,11 +38,22 @@ class Dashboard extends Component {
         }
     }
 
+
+    componentDidMount() {
+        this.props.fetchReports()
+    }
+
+
     render() {
+        const {data,loading}  = this.props;
         return (
             <div>
-               <Bar data={data} options={options}/>
-
+                <hr/>
+                <button className="ui labeled icon green right floated button" onClick={()=>this.props.history.push('/events/new')}>
+                    <i className="plus icon"/>
+                    Add Event
+                </button>
+               <Bar data={parsedData(data)} options={options}/>
             </div>
         );
     }
@@ -51,4 +64,12 @@ Dashboard.propTypes = {
 };
 Dashboard.defaultProps = {};
 
-export default Dashboard;
+const mapStateToProps = (state)=>({
+    loading:state.loading,
+    data:state.report
+})
+const mapDispatchToProps = (dispatch)=>({
+    fetchReports:()=>dispatch(fetchReports())
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(Dashboard);
