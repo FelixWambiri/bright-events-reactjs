@@ -28,7 +28,7 @@ class AddEventForm extends Component {
                 <br/>
                         <Field name="address" component={EventField} type="text" placeholder="Enter Event Address (Location)"/>
                     <br/>
-                            <Field name="description" component={EventField} type="text" placeholder="Tell Us More about your event "/>
+                            <Field name="description" component={EventField} maxlenght={200} type="text" placeholder="Tell Us More about your event "/>
                 <br/>
                             <Field name="start_date" component={EventField} type="date" />
                         <br/>
