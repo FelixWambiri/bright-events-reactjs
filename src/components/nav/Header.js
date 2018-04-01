@@ -70,12 +70,17 @@ class Header extends Component {
                     transition={Fade}
                 >
                     {
-                        (this.Auth.loggedIn()) &&
+                        (!this.Auth.loggedIn()) &&
                         <Link to='/login'><MenuItem onClick={()=>this.toggleMenu()}>Login</MenuItem></Link>
                     }
-
-                    <Link to='/dashboard'><MenuItem onClick={()=>this.toggleMenu()}>Dashboard</MenuItem></Link>
-                    <Link to='/'><MenuItem onClick={()=>this.toggleMenu()}>Logout</MenuItem></Link>
+                    {
+                        (this.Auth.loggedIn() &&
+                                <div>
+                                    <Link to='/dashboard'><MenuItem onClick={()=>this.toggleMenu()}>Dashboard</MenuItem></Link>
+                                    <Link to='/'><MenuItem onClick={()=>this.Auth.logout()}>Logout</MenuItem></Link>
+                                </div>
+                        )
+                    }
 
 
                 </Menu>
