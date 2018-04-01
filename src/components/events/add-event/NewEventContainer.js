@@ -36,14 +36,14 @@ class NewEventContainer extends Component {
 
             )
         }
-        if (error.length !== 0) {
-            return (
+        return (
+            <div>
                 <Snackbar
                     anchorOrigin={{
                         vertical: 'bottom',
                         horizontal: 'center',
                     }}
-                    open={true}
+                    open={!!error.length}
                     autoHideDuration={6000}
                     message={ <span>{error}</span>}
                     action={[
@@ -52,10 +52,9 @@ class NewEventContainer extends Component {
                         </Button>
                     ]}
                 />
-            )
-        }
-        return (
-            <AddEventForm onSubmit={(event)=>this.submit(event)} error={error} />
+                <AddEventForm onSubmit={(event)=>this.submit(event)} error={error} />
+
+            </div>
         );
     }
 }
