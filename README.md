@@ -22,13 +22,13 @@ Bright events provides a platform for event organizers to create and manage diff
 ## Screenshots
 
 ### Events Reports 
-![Screenshot](https://dl.dropboxusercontent.com/content_link/ljuCT0pYxttLWiRCxP1xTb1wPHaPZID3QNJJ5pKG13gIKFmqMqx22YOjYWeb6aXm/file?dl=1)
+![Screenshot](https://image.ibb.co/mNW5Ex/reports_view.png)
 
 ### Homepage 
-![Screenshot](https://dl.dropboxusercontent.com/content_link/eT3KdaSDMB6nopXayFyrIPnTEe8AAwtb86knHvx1ozFGmKN3t9rrulR4KPOqPV1b/file?dl=1)
+![Screenshot](https://image.ibb.co/dWvnSH/homepage.png)
 
 ### Event View 
-![Screenshot](https://dl.dropboxusercontent.com/content_link/jfd5cJWSTMU8xGPNfavOgZxvgPVi3973pixSdxMGHIhX7yKufz7NlucC5FCvnxi1/file?dl=1)
+![Screenshot](https://image.ibb.co/jk7dZx/event_view.png)
 
 ## Installation
 ```
