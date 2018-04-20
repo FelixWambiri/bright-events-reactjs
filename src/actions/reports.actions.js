@@ -19,9 +19,11 @@ export const fetchReports = ()=> {
                 history.replace('/dashboard')
             })
             .catch(response=>{
-                console.log("the error response is ", response)
-                response.then(error=>dispatch(requestFailed(error.message)))
-                history.replace('/dashboard')
+                try{
+                    response.then(error=>dispatch(requestFailed(error.message)))
+                }catch(error) {
+                    dispatch(requestFailed("An Error Occurred while connecting to the server"))
+                }
             })
     }
 }

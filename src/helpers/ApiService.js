@@ -1,5 +1,4 @@
-import {eventsURL, loginURL} from "../constants/urls";
-import fetch from "cross-fetch";
+import {categoriesURL, eventsURL, loginURL} from "../constants/urls";
 import AuthService from "./AuthService";
 
 export default {
@@ -8,9 +7,15 @@ export default {
         signup:(data)=>send(data)
     },
     events:{
-        save:(data)=>send(data,"POST",true,eventsURL),
+        guests:(eventId)=>send({},"GET",true,eventsURL+`${eventId}/guests`),
+        save:(data)=>save(data,"POST",true,eventsURL),
+        delete:(id)=>send(id,"DELETE",true,eventsURL+id),
         rsvp:(data)=>send(data,"POST",true,eventsURL+`${data.event}/rsvp`),
-        reports:()=>send({},"GET",true,eventsURL+'reports')
+        reports:()=>send({},"GET",true,eventsURL+'reports'),
+        myEvents:()=>send({},"GET",true,eventsURL+'my-events')
+    },
+    categories:{
+        fetch:()=>send({},"GET",false,categoriesURL)
     }
 }
 
@@ -23,7 +28,28 @@ function send(data={},method="POST",auth=false,url) {
             'Content-Type':"application/json",
             'Authorization':auth?`Bearer ${authService.getToken()}`:null
         },
-        body: method=== "POST"?JSON.stringify(data):null
+        body: method === "POST"?JSON.stringify(data):null
+    }).then(status)
+}
+function save(data={},method="POST",auth=false,url) {
+
+    var formData = new FormData();
+    formData.append('address',data["address"]);
+    data["category"].image?formData.append('image', data["category"].image, data["category"].image.name.trim()):''
+    formData.append('category',data["category"].category);
+    formData.append('description',data["description"]);
+    formData.append('start_date',data["start_date"]);
+    formData.append('end_date',data["end_date"]);
+    formData.append('name',data["name"]);
+    formData.append('price',data["price"]);
+
+    let authService = new AuthService();
+    return fetch(url,{
+        method: method,
+        headers:{
+            'Authorization':auth?`Bearer ${authService.getToken()}`:null
+        },
+        body:formData
     }).then(status)
 }
 

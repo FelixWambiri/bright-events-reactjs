@@ -1,41 +1,47 @@
 import {
-    AppBar, Drawer, IconButton, Menu, MenuItem, Toolbar, Typography,
-    withStyles
+    AppBar, Drawer, IconButton, Menu, MenuItem, Toolbar, Typography
 } from "material-ui";
 import Fade from 'material-ui/transitions/Fade';
 import AccountCircle from "material-ui-icons/AccountCircle"
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
-import headerStyles from "./styles"
+import {changeTheme} from "../../actions/theme.picker.actions"
 import {toggleDrawer} from "../../actions/drawer";
 import SideNav from "./SideNav";
 import {Link} from "react-router-dom";
-import logo from "./../../assets/img/andlogo.png"
-import {toggleMenu} from "../../actions/bar_menu";
+import {toggleMenu} from "../../actions/barMenu";
+import MenuIcon from 'material-ui-icons/Menu';
 import AuthService from "../../helpers/AuthService";
+import ThemePickerService from "../../helpers/ThemePickerService";
 
 class Header extends Component {
     constructor(props) {
         super(props);
         this.toggleMenu = this.toggleMenu.bind(this)
         this.Auth = new AuthService()
+        this.themeService = new ThemePickerService()
+    }
+
+
+    componentWillMount() {
+        this.props.dispatch(changeTheme(this.themeService.getCurrent()))
     }
 
     toggleMenu(element=null){
         this.props.dispatch(toggleMenu(this.props.menuOpen,element?element.target:element))
     }
     render() {
-        const {classes,dispatch,open,menuOpen,element} = this.props;
+        const {theme,dispatch,open,menuOpen,element} = this.props;
         return (
-            <div className={classes.root}>
-                <AppBar position="static" className={classes.appBar}>
+            <div style={theme.root}>
+                <AppBar position="static" style={theme.style.appBar}>
                     <Toolbar>
                         <IconButton className="" color="inherit" aria-label="Menu" onClick={()=>dispatch(toggleDrawer(open))} >
-                            <img src={logo} alt="" style={{width:30}}/>
+                            <MenuIcon />
                         </IconButton>
 
-                        <Typography variant="title" className={classes.title}>
+                        <Typography variant="title" style={theme.title}>
                             Bright Events
                         </Typography>
 
@@ -77,7 +83,11 @@ class Header extends Component {
                         (this.Auth.loggedIn() &&
                                 <div>
                                     <Link to='/dashboard'><MenuItem onClick={()=>this.toggleMenu()}>Dashboard</MenuItem></Link>
-                                    <Link to='/'><MenuItem onClick={()=>this.Auth.logout()}>Logout</MenuItem></Link>
+                                    <Link to='/'><MenuItem onClick={()=>{
+                                        this.toggleMenu();
+                                        this.Auth.logout();
+                                        this.props.dispatch(changeTheme(this.themeService.getCurrent()))
+                                    }}>Logout</MenuItem></Link>
                                 </div>
                         )
                     }
@@ -92,10 +102,11 @@ class Header extends Component {
 const mapStateToProps = state=>({
     open:state.drawerOpen,
     menuOpen:state.menuOpen.open,
-    element:state.menuOpen.element
+    element:state.menuOpen.element,
+    theme:state.theme
 });
+
 Header.propTypes = {
-    classes:PropTypes.object.isRequired,
     open:PropTypes.bool.isRequired,
     menuOpen:PropTypes.bool.isRequired
 };
@@ -106,4 +117,4 @@ Header.defaultProps = {
 
 const HeaderContainer = connect(mapStateToProps)(Header);
 
-export default withStyles(headerStyles)(HeaderContainer)
+export default HeaderContainer

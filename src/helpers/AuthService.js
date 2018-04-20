@@ -7,6 +7,7 @@ export default class AuthService{
 
     logout() {
         localStorage.removeItem('token');
+        localStorage.removeItem('theme')
     }
 
     getUser(){
@@ -14,6 +15,13 @@ export default class AuthService{
     }
      getToken(){
         return localStorage.getItem("token")
+    }
+    currentUserId(){
+         if(this.loggedIn()){
+             return this.getUser().sub
+         }
+
+         return null
     }
 
      isTokenExpired(token) {

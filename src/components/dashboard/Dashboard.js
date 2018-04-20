@@ -4,6 +4,10 @@ import AuthService from "../../helpers/AuthService";
 import {Bar} from "react-chartjs-2"
 import {fetchReports} from "../../actions/reports.actions";
 import {connect} from "react-redux";
+import {Button, CircularProgress, Snackbar} from "material-ui";
+import ThemePicker from "../themePicker/ThemePicker";
+import {changeTheme} from "../../actions/theme.picker.actions"
+import ThemePickerService from "../../helpers/ThemePickerService";
 
 const options ={}
 const parsedData = data => ({
@@ -29,12 +33,14 @@ class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.Auth = new AuthService()
+        this.themeService = new ThemePickerService()
     }
 
 
     componentWillMount() {
         if(!this.Auth.loggedIn()){
            this.props.history.replace('/login')
+            this.props.changeTheme(this.themeService.getCurrent())
         }
     }
 
@@ -45,11 +51,40 @@ class Dashboard extends Component {
 
 
     render() {
-        const {data,loading}  = this.props;
+        const {data,loading,error,theme}  = this.props;
+        if (loading) {
+            return (
+                <div className="col-4 offset-4">
+                    <CircularProgress/>
+                </div>
+
+            )
+        }
+        if (error){
+            return (
+                <div>
+                    <Snackbar
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'center',
+                        }}
+                        open={!!error.length}
+                        autoHideDuration={6000}
+                        message={ <span>{error}</span>}
+                        action={[
+                            <Button key="retry" color="secondary" size="small" onClick={()=>this.props.fetchReports()}>
+                                Retry
+                            </Button>
+                        ]}
+                    />
+                </div>
+            )
+        }
         return (
             <div>
+                <ThemePicker onChangeTheme={this.props.changeTheme}/>
                 <hr/>
-                <button className="ui labeled icon green right floated button" onClick={()=>this.props.history.push('/events/new')}>
+                <button className="ui labeled icon right floated button" style={theme.button} onClick={()=>this.props.history.push('/events/new')}>
                     <i className="plus icon"/>
                     Add Event
                 </button>
@@ -66,10 +101,13 @@ Dashboard.defaultProps = {};
 
 const mapStateToProps = (state)=>({
     loading:state.loading,
-    data:state.report
+    data:state.report,
+    error:state.error,
+    theme:state.theme.style
 })
 const mapDispatchToProps = (dispatch)=>({
-    fetchReports:()=>dispatch(fetchReports())
+    fetchReports:()=>dispatch(fetchReports()),
+    changeTheme:(color)=>dispatch(changeTheme(color))
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(Dashboard);

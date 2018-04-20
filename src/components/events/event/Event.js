@@ -1,44 +1,31 @@
 import {
     Button,
-    Card, CardActions, CardContent, Divider, Grid,
-    Typography, withStyles
+    Card, CardActions, CardContent,Divider, Grid
 } from "material-ui";
 import React from "react";
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
+import {IMAGE_BASE_URL} from "../../../constants/urls";
+import event from "../../../assets/img/bright.png"
+import Description from "./DescriptionComponet";
 
 
-const styles = {
-    card: {
-        maxWidth: 500,
-        marginLeft:20,
-        maxHeight:300,
-        borderRadius:7,
-    },
-    media: {
-        height: 50,
-        backgroundColor:"#E64A19"
-    },
-};
 const Event = (props) =>{
-    const {classes,name,description,id} = props;
+    const {theme,name,description,id,image} = props;
+
+
+    const mediaURL =  image?IMAGE_BASE_URL+`${image}`:event
     return (
         <Grid item md={4}>
-            <Card className={classes.card}>
-                <div
-                    className={classes.media}
-                    title="Bright Event"
-               />
+            <Card style={theme.card}>
+                   <img alt={name} src={mediaURL} style={theme.media} />
                 <CardContent>
-                    <Typography variant="title" component="h2">
-                        {name.toUpperCase()}
-                    </Typography>
-                    <Typography component="p">
-                        {description}
-                    </Typography>
+                   <h5> {name.toUpperCase()}</h5>
+                    <Description description={description} theme={theme.description}/>
                 </CardContent>
                 <Divider light />
                 <CardActions>
-                    <Button component={Link} variant="flat"  to={`events/show/${id}`} size="small" color="primary">
+                    <Button component={Link} variant="flat"  to={`events/show/${id}`} size="small" style={theme.button}>
                         Learn More
                     </Button>
                 </CardActions>
@@ -47,4 +34,7 @@ const Event = (props) =>{
 
     )
 }
-export default withStyles(styles)(Event)
+const mapStateToProps = state=>({
+    theme:state.theme.style
+})
+export default connect(mapStateToProps)(Event)

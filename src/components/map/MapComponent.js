@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import GoogleMapReact from "google-map-react";
-import {MarkerComponent} from "./events/MapMarker";
+import {MarkerComponent} from "../events/MapMarker/MapMarker";
 
 class MapComponent extends Component {
     render() {
@@ -32,8 +32,8 @@ class MapComponent extends Component {
 }
 
 MapComponent.propTypes = {
-    coordinates:PropTypes.object.isRequired,
-    address:PropTypes.string.isRequired,
+    coordinates:PropTypes.object,
+    address:PropTypes.string,
     loading:PropTypes.bool
 };
 

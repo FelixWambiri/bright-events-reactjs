@@ -5,7 +5,7 @@ import { doLogin } from "../../actions/login.actions";
 import {Link} from "react-router-dom";
 import AuthService from "../../helpers/AuthService";
 import {withStyles} from "material-ui";
-import auth_styles from "./auth_styles";
+import auth_styles from "./authStyles";
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -65,7 +65,7 @@ class Login extends Component {
                             </div>
                             }
                             <div className="ui bottom attached warning message">
-                                Don't Have An Account? <Link to="/register">Get Oe</Link>
+                                Don't Have An Account? <Link to="/register">Sign up</Link>
                             </div>
 
                         </form>

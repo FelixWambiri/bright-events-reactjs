@@ -10,7 +10,9 @@ class EventsList extends Component {
             <Grid container >
                 {
                     [...events].map(event=>
-                        <Event key={event.id} {...event} />
+                    {
+                      return <Event key={event.id} {...event} />
+                    }
                     )
                 }
             </Grid>
@@ -19,7 +21,7 @@ class EventsList extends Component {
 }
 
 EventsList.propTypes = {
-    events:PropTypes.array.isRequired
+    events:PropTypes.array.isRequired,
 };
 
 export default EventsList;

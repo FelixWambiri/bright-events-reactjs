@@ -1,6 +1,7 @@
 import {
-    FETCH_EVENTS_SUCCESS, FETCH_MAP_SUCCESS, FETCH_REPORTS_SUCCESS, LOGIN_SUCCESS, REQUEST_FAILED,
-    REQUEST_STARTED, RSVP_SUCCESS, SIGNUP_SUCCESS
+    CATEGORIES_FETCHED,
+    FETCH_EVENTS_SUCCESS, FETCH_MAP_SUCCESS, FETCH_GUESTS_SUCCESS, FETCH_REPORTS_SUCCESS, LOGIN_SUCCESS, REQUEST_FAILED,
+    REQUEST_STARTED, RSVP_SUCCESS, SIGNUP_SUCCESS, FETCH_MY_EVENTS_SUCCESS
 } from "../constants/action_types";
 
 export default (isLoading=false, action)=>{
@@ -14,6 +15,9 @@ export default (isLoading=false, action)=>{
         case FETCH_MAP_SUCCESS:
         case FETCH_REPORTS_SUCCESS:
         case RSVP_SUCCESS:
+        case FETCH_MY_EVENTS_SUCCESS:
+        case CATEGORIES_FETCHED:
+        case FETCH_GUESTS_SUCCESS:
             return false;
         default:
             return isLoading

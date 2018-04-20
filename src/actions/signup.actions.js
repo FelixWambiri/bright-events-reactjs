@@ -1,4 +1,4 @@
-import {REQUEST_FAILED, REQUEST_SIGNUP,SIGNUP_SUCCESS} from "../constants/action_types";
+import { REQUEST_SIGNUP,SIGNUP_SUCCESS} from "../constants/action_types";
 import {requestFailed} from "./api.actions";
 
 const loginURL = "http://localhost:5000/api/v1/auth/register";

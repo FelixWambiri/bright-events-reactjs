@@ -7,48 +7,89 @@ import {Field, reduxForm} from "redux-form";
 import EventField from "./EventField";
 import Save from 'material-ui-icons/Save';
 import validate from "./validationRules";
-import renderSelectField from "./SelectField";
+import {Dropdown} from "semantic-ui-react";
+import Dropzone from "react-dropzone";
+
+const options=[]
 
 class AddEventForm extends Component {
+    state={options,image:null};
     constructor(props) {
         super(props);
         this.submit = this.submit.bind(this)
+        this.handleChange = this.handleChange.bind(this)
+        this.addCategory = this.addCategory.bind(this)
+    }
+    onDrop(values){
+        this.setState({image:values[0]})
+
+    }
+    componentDidMount() {
+        const categories = this.props.categories.map((category,i)=>{
+            return {key:i,text:category.name,value:category.name}
+            }
+        )
+        this.setState({options:categories})
     }
 
-    submit(event){
-        event.preventDefault()
+
+    submit(values,dispatch,props){
+        this.props.onSaveEvent(values,{category:this.state.selected,image:this.state.image})
     }
+
+    handleChange(e,{value}){
+        this.setState({selected:value})
+    }
+    addCategory(e,{value}){
+        this.setState({options:[...this.state.options,{key:value,text:value,value:value}],selected:value})
+    }
+
     render() {
-
+        const {selected} = this.state;
         const {classes,handleSubmit} = this.props;
         return (
-            <form className={`ui form ${classes.formContainer}`} onSubmit={handleSubmit}>
+            <form className={`ui form ${classes.formContainer}`} onSubmit={handleSubmit(this.submit)}>
+
+
                 <h3 className={`ui dividing header ${classes.header}`}>Create New Event</h3>
-                    <Field name="name" component={EventField} type="text" placeholder="Enter Event's Name"/>
+                    <Field name="name" component={EventField} type="text" placeholder="Event name"/>
                 <br/>
-                        <Field name="address" component={EventField} type="text" placeholder="Enter Event Address (Location)"/>
+                        <Field name="address" component={EventField} type="text" placeholder="Event address (Location)"/>
                     <br/>
-                            <Field name="description" component={EventField} maxlenght={200} type="text" placeholder="Tell Us More about your event "/>
+                            <Field name="description" component={EventField} maxLenght={200} type="text" placeholder="Tell us more about your event "/>
                 <br/>
                             <Field name="start_date" component={EventField} type="date" />
                         <br/>
                                 <Field name="end_date" component={EventField} type="date" />
 
                             <br/>
-                                    <Field name="price" component={EventField} type="text" placeholder="How much is it going to cost us?"/>
+                                    <Field name="price" component={EventField} type="text" placeholder="Price"/>
                                 <br/>
 
-                <Field
-                    name="category_id"
-                    component={renderSelectField}
-                    label="Select Category"
-                    defaultValue
+                <Dropzone
+                    onDrop={this.onDrop.bind(this)}
+                    accept="image/*"
+                    disableClick={true}
+                    required
                 >
-                    <option value="0">Please Select a Category</option>
-                    <option value="1">Niskdfls</option>
-                    <option value="1">Niskdfls</option>
-                    <option value="1">Niskdfls</option>
-                </Field>
+                    Drop Event Image
+                </Dropzone>
+
+
+
+                <Dropdown
+                    ref="category"
+                    options={this.state.options}
+                    placeholder='Choose Category'
+                    search
+                    selection
+                    fluid
+                    allowAdditions
+                    additionLabel="New Category"
+                    value={selected}
+                    onAddItem={this.addCategory}
+                    onChange={this.handleChange}
+                />
                                     <br/>
                                         
 
@@ -71,9 +112,6 @@ const EventForm= reduxForm({
     validate})(EventWithStyle);
 AddEventForm.propTypes = {
     categories:PropTypes.array.isRequired,
-};
-AddEventForm.defaultProps = {
-    categories:[],
 };
 
 export default EventForm

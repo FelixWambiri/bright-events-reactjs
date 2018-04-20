@@ -1,24 +1,24 @@
 import {
-    EVENT_FORM_ERROR,
-    FETCH_EVENTS_REQUEST, FETCH_EVENTS_SUCCESS, REQUEST_FAILED, RSVP_FAILED, RSVP_LOADING, RSVP_SUCCESS,
+    FETCH_EVENTS_REQUEST, FETCH_EVENTS_SUCCESS, FETCH_MY_EVENTS_SUCCESS, RSVP_FAILED, RSVP_LOADING, RSVP_SUCCESS,
     SHOW_SINGLE_EVENT
 } from "../constants/action_types";
 import fetch from "cross-fetch"
 import {requestFailed, requestStarted} from "./api.actions";
 import MapService from "../helpers/MapService";
 import {fetchedCoordinates} from "./map.actions";
-import history from "../helpers/history";
-import {savedEvent, savingEvent} from "./new_event";
 import ApiService from "../helpers/ApiService";
 import AuthService from "../helpers/AuthService";
+import {eventsURL} from "../constants/urls";
+import {doFetchGuests} from "./guests.action";
 export const requestEvents = ()=>({
     type:FETCH_EVENTS_REQUEST
 });
 
-export const addEventFailed = error =>({
-    type:EVENT_FORM_ERROR,
-    error
-});
+
+const fetchMyEventsSuccessful = events=>({
+    type:FETCH_MY_EVENTS_SUCCESS,
+    events
+})
 
 const receiveEvents = events=>
     ({
@@ -69,6 +69,24 @@ const fetchCoordinates = address =>{
         })
 };
 
+export const myEvents = ()=>{
+    return dispatch =>{
+        dispatch(requestStarted());
+        ApiService.events.myEvents()
+            .then((response)=>{
+                dispatch(fetchMyEventsSuccessful(response.events));
+            })
+            .catch(response=>{
+                try{
+                    response.then(error=>dispatch(requestFailed(error.message)));
+                }catch (error){
+                    dispatch(requestFailed("Network Request Failed"))
+                }
+
+            })
+    }
+}
+
 export const rsvp = (event)=>{
     const user = new AuthService().getUser()
     const data = {
@@ -85,24 +103,52 @@ export const rsvp = (event)=>{
                 try{
                     response.then(error=>dispatch(rsvpFailed(error.message)));
                 }catch (error){
-                    // response.then(error=>dispatch(rsvpFailed(error.message)));
                     dispatch(rsvpFailed("Network Request Failed"))
                 }
 
             })
     }
 };
+export const deleteEvent = (event_id)=>{
+    console.log("delting an event ", event_id)
+    return dispatch =>{
+        dispatch(requestStarted());
+        ApiService.events.delete(event_id)
+            .then(()=>{
+                dispatch(rsvpSuccess());
+            })
+            .catch(response=>{
+                try{
+                    response.then(error=>dispatch(requestFailed(error.message)));
+                }catch (error){
+                    dispatch(requestFailed("Network Request Failed"))
+                }
 
-export const fetchSingleEvent  = (id)=>{
+            })
+    }
+};
+
+export const fetchSingleEvent  = (id,includeGuests=true)=>{
+    const auth = new AuthService();
     return dispatch =>{
         dispatch(requestEvents());
-        return fetch(`http://localhost:5000/api/v1/events/${id}`)
+        return fetch(`${eventsURL}${id}`)
             .then(response=>response.json())
             .then(json=>{
                 fetchCoordinates(json.event.address)
                     .then(data=>{
-                        dispatch(fetchedCoordinates(data))
+                        dispatch(fetchedCoordinates(data));
                         dispatch(receiveSingleEvent(json.event))
+                        if(includeGuests){
+                            try {
+                                if(auth.loggedIn() && auth.currentUserId() === json.event.user_id){
+                                    dispatch(doFetchGuests(json.event.id))
+                                }
+                            }catch(error){
+                                console.log("the error is ", error)
+                            }
+                        }
+
                     })
 
             })

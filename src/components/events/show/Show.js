@@ -5,29 +5,32 @@ import {fetchSingleEvent, rsvp} from "../../../actions/events";
 import moment from "moment"
 import {
     Avatar, Button,
-    Card, CardActions, CardContent, CardHeader, CircularProgress, Divider, Grid, Snackbar
+    Card, CardContent, CardHeader, CircularProgress, Divider, Grid, Snackbar
 } from "material-ui";
 import {Link} from "react-router-dom";
-import MapComponent from "../../MapComponent";
+import MapComponent from "../../map/MapComponent";
 import Warning from "../../Warning";
 import AuthService from "../../../helpers/AuthService";
-
-
+import EventGuests from "../../guests/EventGuests";
 
 class Show extends Component {
-
-    componentDidMount() {
-        this.props.fetchSingleEvent()
-    }
-
     constructor(props) {
         super(props);
         this.auth = new AuthService()
     }
 
+    componentDidMount() {
+        this.props.fetchSingleEvent();
+    }
+
+
+    componentDidCatch(error,errorInfo){
+        console.log("we've got this error",error)
+        console.log("this is what we kno w about an error ", errorInfo)
+    }
 
     render() {
-        const {event,coordinates,loading,error,rsvp,rsvp_loading} = this.props;
+        const {event,theme,guests,coordinates,loading,error,rsvp,rsvp_loading} = this.props;
         if (loading){
             return (
                 <div className="col-4 offset-4">
@@ -54,17 +57,15 @@ class Show extends Component {
                     />:''
                 }
 
-                <Grid>
-                    <div style={{margin:10}} >
+                    <div style={theme.card} >
                         <Grid >
                             <Card className="">
                                 <CardHeader
                                     avatar={
-                                        <Avatar aria-label="Recipe" className="">
+                                        <Avatar aria-label="Recipe" className="" color="primary">
                                             S
                                         </Avatar>
                                     }
-                                    style={{backgroundColor:"#b7b3b9",color:"white"}}
                                     title={event.name}
                                     subheader={`${ moment(event.start_date).fromNow()}`}
                                 />
@@ -73,14 +74,13 @@ class Show extends Component {
                                     <div className="row">
                                         <div className="col-4">
                                            <h3>{event.name}</h3>
-                                            <hr/>
                                             <p>
                                                 {event.description}
                                             </p>
-                                            <p>
+                                            <div>
                                                 <h5>Organiser: {}</h5>
                                                 <h5>Price: {event.price} Ksh</h5>
-                                            </p>
+                                            </div>
                                             <div className="ui success message transition hidden">
                                                 <i className="close icon"/>
                                                 <div className="header">
@@ -89,7 +89,10 @@ class Show extends Component {
                                                 <p>You may now log-in with the username you have chosen</p>
                                             </div>
                                             <div className="ui buttons">
-                                                <button className="ui button">Share</button>
+                                                <a className="ui facebook button" href="#">
+                                                    <i className="facebook icon"/>
+                                                    Share
+                                                </a>
                                                 <div className="or"/>
                                                 {
                                                     (this.auth.loggedIn())?
@@ -97,34 +100,40 @@ class Show extends Component {
                                                         <button className="ui positive button" onClick={()=>this.props.history.push('/login')}>Login To RSVP</button>
                                                 }
                                             </div>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            {
+                                                (this.auth.loggedIn() && event.user_id === this.auth.currentUserId()) &&
+                                                <EventGuests guests={guests} />
+                                            }
+
 
 
                                         </div>
                                         <div className="col-8">
+
                                             {
+                                                loading &&
                                                 (typeof coordinates === 'string')?<Warning message={coordinates}/>:
                                                     <MapComponent  coordinates={coordinates} {...event} loading={loading}/>
                                             }
                                         </div>
                                     </div>
                                 </CardContent>
-                                <CardActions>
-                                    <Link  to='#/' size="small" color="info">
-                                        Learn More
-                                    </Link>
-                                </CardActions>
                             </Card>
                         </Grid>
                     </div>
                 </Grid>
 
-            </Grid>
 
         );
     }
 }
 Show.defaultProps = {
-    zoom: 11
+    zoom: 11,
+    event:{}
 };
 Show.propTypes = {
     event:PropTypes.object.isRequired
@@ -132,8 +141,8 @@ Show.propTypes = {
 
 const mapDispatchToProps = (dispatch,ownProps) =>{
    return {
-          fetchSingleEvent:()=>dispatch(fetchSingleEvent(ownProps.match.params.id)),
-       rsvp:(event)=>dispatch(rsvp(event))
+            fetchSingleEvent:()=>dispatch(fetchSingleEvent(ownProps.match.params.id)),
+            rsvp:(event)=>dispatch(rsvp(event))
    }
 };
 
@@ -143,6 +152,8 @@ const mapStateToProps = (state) =>{
         coordinates:state.map.coordinates,
         loading:state.loading,
         error:state.error,
+        theme:state.theme,
+        guests:state.guests,
         rsvp_loading:state.rsvp_loading
     }
 }

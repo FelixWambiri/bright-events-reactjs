@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 
 import AddEventForm from "./AddEventForm";
-import {saveEvent} from "../../../actions/new_event";
+import {saveEvent} from "../../../actions/newEvent";
 import {connect} from "react-redux";
 import {Button, CircularProgress, Snackbar} from "material-ui";
 import {Link} from "react-router-dom";
 import AuthService from "../../../helpers/AuthService";
+import {fetchCategories} from "../../../actions/categories.actions";
+import {Segment} from "semantic-ui-react";
 
 class NewEventContainer extends Component {
     constructor(props) {
@@ -18,26 +20,24 @@ class NewEventContainer extends Component {
     componentWillMount() {
         if(!this.Auth.loggedIn())
             this.props.history.replace('/login')
+        this.props.fetchCategories()
     }
 
 
+    componentDidMount() {
 
-    submit(event){
-        this.props.saveEvent(event);
+    }
+
+
+    submit(event,category){
+        this.props.saveEvent(event,category);
     }
 
     render() {
-        const {error,loading} = this.props;
-        if (loading) {
-            return (
-                <div className="col-4 offset-4">
-                    <CircularProgress/>
-                </div>
+        const {error,loading,categories} = this.props;
 
-            )
-        }
         return (
-            <div>
+            <div >
                 <Snackbar
                     anchorOrigin={{
                         vertical: 'bottom',
@@ -52,7 +52,11 @@ class NewEventContainer extends Component {
                         </Button>
                     ]}
                 />
-                <AddEventForm onSubmit={(event)=>this.submit(event)} error={error} />
+                <div className="col-6 offset-3">
+                    <Segment raised>
+                        <AddEventForm categories={categories} onSaveEvent={(event,category)=>this.submit(event,category)} error={error} />
+                    </Segment>
+                </div>
 
             </div>
         );
@@ -71,7 +75,8 @@ const mapStateToProps = state=>
 
 const mapDispatchToProps = dispatch => {
     return {
-        saveEvent:(event,history)=>dispatch(saveEvent(event,history))
+        saveEvent:(event,category)=>dispatch(saveEvent(event,category)),
+        fetchCategories:()=>dispatch(fetchCategories())
     }
 };
 

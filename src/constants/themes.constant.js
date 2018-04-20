@@ -1,0 +1,4 @@
+export const LIGHT_SEA_GREEN = "LIGHT_SEA_GREEN";
+export const BYZANTINE = "BYZANTINE";
+export const ANDROID_GREEN = "ANDROID_GREEN";
+export const DEFAULT_THEME = "DEFAULT_THEME";
