@@ -6,18 +6,18 @@ import {formStyles} from "./styles"
 import {Field, reduxForm} from "redux-form";
 import EventField from "./EventField";
 import Save from 'material-ui-icons/Save';
-import validate from "./validationRules";
+import validate from "../../../helpers/validationRules";
 import {Dropdown} from "semantic-ui-react";
 import Dropzone from "react-dropzone";
 
-const options=[]
+const options=[];
 
 class AddEventForm extends Component {
     state={options,image:null};
     constructor(props) {
         super(props);
-        this.submit = this.submit.bind(this)
-        this.handleChange = this.handleChange.bind(this)
+        this.submit = this.submit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
         this.addCategory = this.addCategory.bind(this)
     }
     onDrop(values){
@@ -28,7 +28,7 @@ class AddEventForm extends Component {
         const categories = this.props.categories.map((category,i)=>{
             return {key:i,text:category.name,value:category.name}
             }
-        )
+        );
         this.setState({options:categories})
     }
 
