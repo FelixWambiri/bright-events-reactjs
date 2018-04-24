@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import AddEventForm from './AddEventForm';
 import { saveEvent } from '../../../actions/newEvent';
 import { connect } from 'react-redux';
-import { Button, CircularProgress, Snackbar } from 'material-ui';
+import { Button, Snackbar } from 'material-ui';
 import { Link } from 'react-router-dom';
 import AuthService from '../../../helpers/AuthService';
 import { fetchCategories } from '../../../actions/categories.actions';
@@ -33,7 +33,7 @@ class NewEventContainer extends Component {
   }
 
   render() {
-    const { error, loading, categories } = this.props;
+    const { error, categories } = this.props;
 
     return (
       <div >

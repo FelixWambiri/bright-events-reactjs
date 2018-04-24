@@ -1,6 +1,5 @@
 export const defaultColor = {
   appBar: {
-    // backgroundColor:"#249DAD",
     background: 'linear-gradient(90deg, #05aaa3 0%, #64d98b 50%, #92ed8d 100%)',
     borderRadius: 1,
 

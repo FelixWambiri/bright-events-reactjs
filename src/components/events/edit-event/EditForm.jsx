@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { Button } from 'material-ui';
 import '../../../assets/css/semantic.min.css';
-import { reduxForm } from 'redux-form';
 import Save from 'material-ui-icons/Save';
 import { Dropdown } from 'semantic-ui-react';
 import Dropzone from 'react-dropzone';
 import { compose } from 'recompose';
-import validate from '../../../helpers/validationRules';
 import dateFormater from '../../../helpers/DateFormatter';
 import { connect } from 'react-redux';
 import { updateEvent } from '../../../actions/events';
@@ -156,9 +154,6 @@ class EditForm extends Component {
   }
 }
 
-const EditEventForm = reduxForm({ form: 'editForm' }, validate);
-EditForm.propTypes = {
-};
 const mapStateToProps = state => ({ formState: state.form.editForm });
 const mapDispatchToProps = dispatch => ({
   updateEvent: event => dispatch(updateEvent(event)),

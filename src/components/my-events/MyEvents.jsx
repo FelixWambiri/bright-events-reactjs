@@ -64,16 +64,15 @@ class MyEvents extends Component {
                         <TableHead>
                           <TableRow>
                             <TableCell>Event Name</TableCell>
-                            <TableCell numeric>Category</TableCell>
                             <TableCell numeric>Created</TableCell>
-                            <TableCell numeric>Actions</TableCell>
+                            <TableCell numeric>Edit</TableCell>
+                            <TableCell numeric>Delete</TableCell>
                           </TableRow>
                         </TableHead>
                         <TableBody>
                           {events.map(event => (
                             <TableRow key={event.id}>
                               <TableCell>{event.name}</TableCell>
-                              <TableCell >{event.category}</TableCell>
                               <TableCell numeric>{event.created_at}</TableCell>
                               <TableCell numeric>
                                 <IconButton aria-label="Edit" component={Link} to={`/events/${event.id}/edit`}>

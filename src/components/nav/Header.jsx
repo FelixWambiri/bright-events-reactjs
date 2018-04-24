@@ -2,14 +2,15 @@ import { AppBar, Drawer, IconButton, Menu, MenuItem, Toolbar, Typography } from 
 import Fade from 'material-ui/transitions/Fade';
 import AccountCircle from 'material-ui-icons/AccountCircle';
 import React, { Component } from 'react';
+import MenuIcon from 'material-ui-icons/Menu';
+import { Link } from 'react-router-dom';
+
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { changeTheme } from '../../actions/theme.picker.actions';
 import { toggleDrawer } from '../../actions/drawer';
 import SideNav from './SideNav';
-import { Link } from 'react-router-dom';
 import { toggleMenu } from '../../actions/barMenu';
-import MenuIcon from 'material-ui-icons/Menu';
 import AuthService from '../../helpers/AuthService';
 import ThemePickerService from '../../helpers/ThemePickerService';
 
@@ -44,12 +45,11 @@ class Header extends Component {
             <Typography variant="title" style={theme.title}>
                             Bright Events
             </Typography>
-
             <IconButton
               aria-owns={element ? 'fade-menu' : null}
               aria-haspopup="true"
               color="inherit"
-              onClick={element => this.toggleMenu(element)}
+              onClick={el => this.toggleMenu(el)}
             >
               <AccountCircle />
             </IconButton>
@@ -83,10 +83,11 @@ class Header extends Component {
                         (this.Auth.loggedIn() &&
                         <div>
                           <Link to="/dashboard"><MenuItem onClick={() => this.toggleMenu()}>Dashboard</MenuItem></Link>
-                          <Link to="/"><MenuItem onClick={() => {
-                                        this.toggleMenu();
-                                        this.Auth.logout();
-                                        this.props.dispatch(changeTheme(this.themeService.getCurrent()));
+                          <Link to="/"><MenuItem
+                            onClick={() => {
+                            this.toggleMenu();
+                            this.Auth.logout();
+                            this.props.dispatch(changeTheme(this.themeService.getCurrent()));
                                     }}
                           >Logout
                           </MenuItem>

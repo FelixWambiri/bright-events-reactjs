@@ -25,8 +25,7 @@ class Signup extends Component {
   render() {
     const { loading, error } = this.props;
     return (
-      <div className="ui grid">
-        <div className="three column row">
+        <div className="col-md-4 offset-md-4 col-sm-12 col-xs-12">
           <div className="ui raised centered segment column">
             <h3 className="ui centered header">Login</h3>
             <hr />
@@ -37,7 +36,7 @@ class Signup extends Component {
                   ref="email"
                   type="text"
                   name="email"
-                  placeholder="samaki@kibua.com"
+                  placeholder="Your Email Address"
                 />
               </div>
               <br />
@@ -46,7 +45,7 @@ class Signup extends Component {
                   required
                   ref="name"
                   type="text"
-                  placeholder="Charles Kibua"
+                  placeholder="Full Name"
                 />
               </div>
               <br />
@@ -81,7 +80,6 @@ class Signup extends Component {
             </form>
           </div>
         </div>
-      </div>
     );
   }
 }

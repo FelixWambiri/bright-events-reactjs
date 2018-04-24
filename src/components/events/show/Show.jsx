@@ -87,14 +87,14 @@ class Show extends Component {
                       <i className="close icon" />
                       <div className="header">
                                                     Your user registration was successful.
-                          </div>
+                      </div>
                       <p>You may now log-in with the username you have chosen</p>
                     </div>
                     <div className="ui buttons">
-                      <a className="ui facebook button" href="#">
-                            <i className="facebook icon" />
+                      <button className="ui facebook button">
+                        <i className="facebook icon" />
                                                     Share
-                          </a>
+                      </button>
                       <div className="or" />
                       {
                                                     (this.auth.loggedIn()) ?

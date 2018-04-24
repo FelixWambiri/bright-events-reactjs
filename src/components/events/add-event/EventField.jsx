@@ -4,7 +4,7 @@ import { formStyles } from './styles';
 
 const EventField = (props) => {
   const {
-    classes, input, type, defaultValue, placeholder, maxlength, meta: { touched, dirty, error },
+    classes, input, type, placeholder, maxlength, meta: { touched, error },
   } = props;
   console.log({ ...input });
   return (
