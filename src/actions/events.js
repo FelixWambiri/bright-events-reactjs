@@ -58,7 +58,7 @@ const rsvpFailed = error => ({
 
 export const fetchEvents = () => (dispatch) => {
   dispatch(requestStarted());
-  return fetch('http://localhost:5000/api/v1/events/')
+  return fetch(eventsURL)
     .then(response => response.json())
     .then(json => dispatch(receiveEvents(json.events)))
     .catch((error) => {

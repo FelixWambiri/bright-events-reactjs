@@ -1,7 +1,7 @@
 import { REQUEST_SIGNUP, SIGNUP_SUCCESS } from '../constants/action_types';
 import { requestFailed } from './api.actions';
+import { registerURL } from '../constants/urls';
 
-const loginURL = 'http://localhost:5000/api/v1/auth/register';
 
 export const requestSignup = () => ({
   type: REQUEST_SIGNUP,
@@ -14,7 +14,7 @@ export const signupSuccess = token => ({
 
 export const doSignup = (email, name, password) => (dispatch) => {
   dispatch(requestSignup());
-  return fetch(loginURL, {
+  return fetch(registerURL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

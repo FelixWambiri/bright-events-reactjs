@@ -24,7 +24,11 @@ class EventGuests extends React.Component {
                             </Avatar>
                             <ListItemText inset primary={guest.name} />
                           </ListItem>)) :
-                        <span className="ui warning message">Currently This Event Has No Subscribers</span>
+                        <div className="row">
+                          <div className="col-xs-12">
+                            <span className="ui warning message">Currently This Event Has No Subscribers</span>
+                          </div>
+                        </div>
                     }
 
         </List>

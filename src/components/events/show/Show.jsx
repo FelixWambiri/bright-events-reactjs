@@ -35,7 +35,7 @@ class Show extends Component {
     } = this.props;
     if (loading) {
       return (
-        <div className="col-4 offset-4">
+        <div className="col-4 offset-4 ">
           <CircularProgress />
         </div>
       );
@@ -60,7 +60,7 @@ class Show extends Component {
                 }
 
         <div style={theme.card} >
-          <Grid >
+          <Grid>
             <Card className="">
               <CardHeader
                 avatar={
@@ -74,7 +74,7 @@ class Show extends Component {
               <Divider />
               <CardContent>
                 <div className="row">
-                  <div className="col-4">
+                  <div className="col-md-4 col-xs-12 col-sm-12">
                     <h3>{event.name}</h3>
                     <p>
                       {event.description}
@@ -82,13 +82,6 @@ class Show extends Component {
                     <div>
                       <h5>Organiser: {}</h5>
                       <h5>Price: {event.price} Ksh</h5>
-                    </div>
-                    <div className="ui success message transition hidden">
-                      <i className="close icon" />
-                      <div className="header">
-                                                    Your user registration was successful.
-                      </div>
-                      <p>You may now log-in with the username you have chosen</p>
                     </div>
                     <div className="ui buttons">
                       <button className="ui facebook button">
@@ -107,13 +100,13 @@ class Show extends Component {
                     <br />
                     <br />
                     {
-                                                (this.auth.loggedIn() && event.user_id === this.auth.currentUserId()) &&
-                                                <EventGuests guests={guests} />
+                      (this.auth.loggedIn() && event.user_id === this.auth.currentUserId()) &&
+                      <EventGuests guests={guests} />
                                             }
 
 
                   </div>
-                  <div className="col-8">
+                  <div className="col-md-8 col-xs-12 col-sm-12">
 
                     {
                                                 loading &&
