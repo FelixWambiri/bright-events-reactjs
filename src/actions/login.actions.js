@@ -15,6 +15,7 @@ const requestFailed = error => ({
   error,
 });
 export const doLogin = (email, password) => (dispatch) => {
+    console.log("email is ", email, password)
   dispatch(requestLogin());
   ApiService.user.login({ email, password })
     .then((response) => {

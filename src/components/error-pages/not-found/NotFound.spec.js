@@ -8,6 +8,6 @@ import { Card } from 'material-ui';
 describe('Not Found component tester', () => {
   const wrapper = shallow(<NotFound />);
   it('should render without throwing an error', () => {
-    expect(true).toBe(true)
+    expect(true).toBe(true);
   });
 });
