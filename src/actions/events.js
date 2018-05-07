@@ -10,13 +10,9 @@ import ApiService from '../helpers/ApiService';
 import AuthService from '../helpers/AuthService';
 import { eventsURL } from '../constants/urls';
 import { doFetchGuests } from './guests.action';
-import { REQUEST_STARTED } from '../constants/action_types';
 
 import history from '../helpers/history';
 
-export const savingEvent = () => ({
-  type: REQUEST_STARTED,
-});
 export const savedEvent = () => ({
   type: UPDATE_EVENT_SUCCESS,
 });
@@ -75,7 +71,7 @@ const fetchCoordinates = address => MapService(address)
 
 export const myEvents = () => (dispatch) => {
   dispatch(requestStarted());
-  ApiService.events.myEvents()
+  return ApiService.events.myEvents()
     .then((response) => {
       dispatch(fetchMyEventsSuccessful(response.events));
     })
@@ -112,40 +108,41 @@ export const rsvp = (event) => {
 
 
 export const updateEvent = (event) => {
-  const updated_event = Object.assign({}, event);
+  const updatedEvent = Object.assign({}, event);
   return (dispatch) => {
-    dispatch(savingEvent());
-    ApiService.events.update(updated_event)
+    dispatch(requestStarted());
+    return ApiService.events.update(updatedEvent)
       .then(() => {
         dispatch(savedEvent());
         history.replace('/');
       })
       .catch((response) => {
-        console.log('the response is ', response);
         try {
           response.then(error => dispatch(requestFailed(error.message)));
         } catch (error) {
-          console.log('the error si ', error);
           dispatch(requestFailed('Can Not Connect To The Server'));
         }
-        // response.then(error=>dispatch(requestFailed(error.message)));
         history.replace('/my-events');
       });
   };
 };
 
 
-export const deleteEvent = event_id => (dispatch) => {
+export const deleteEvent = eventId => (dispatch) => {
   dispatch(requestStarted());
-  ApiService.events.delete(event_id)
-    .then(() => {
+  return ApiService.events.delete(eventId)
+    .then((response) => {
+      if (!response.ok) {
+        return response.text().then((text) => { throw Error(text); });
+      }
       dispatch(rsvpSuccess());
+      return response.json();
     })
     .catch((response) => {
       try {
-        response.then(error => dispatch(requestFailed(error.message)));
+        return response.then(error => dispatch(requestFailed(error.message)));
       } catch (error) {
-        dispatch(requestFailed('Network Request Failed'));
+        return dispatch(requestFailed(response.message));
       }
     });
 };
@@ -153,25 +150,29 @@ export const deleteEvent = event_id => (dispatch) => {
 export const fetchSingleEvent = (id, includeGuests = true) => {
   const auth = new AuthService();
   return (dispatch) => {
-    dispatch(requestEvents());
+    dispatch(requestStarted());
     return fetch(`${eventsURL}${id}`)
-      .then(response => response.json())
-      .then((json) => {
-        fetchCoordinates(json.event.address)
-          .then((data) => {
-            dispatch(fetchedCoordinates(data));
-            dispatch(receiveSingleEvent(json.event));
-            if (includeGuests) {
-              try {
-                if (auth.loggedIn() && auth.currentUserId() === json.event.user_id) {
-                  dispatch(doFetchGuests(json.event.id));
-                }
-              } catch (error) {
-                console.log('the error is ', error);
-              }
-            }
-          });
+      .then((response) => {
+        if (!response.ok) {
+          return response.text().then((text) => { throw Error(text); });
+        }
+        return response.json();
       })
+      .then(json => fetchCoordinates(json.event.address)
+        .then((data) => {
+          dispatch(fetchedCoordinates(data));
+          dispatch(receiveSingleEvent(json.event));
+          if (includeGuests) {
+            try {
+              if (auth.loggedIn() && auth.currentUserId() === json.event.user_id) {
+                dispatch(doFetchGuests(json.event.id));
+              }
+            } catch (error) {
+              // eslint-disable-next-line no-console
+              console.log('the error is ', error);
+            }
+          }
+        }))
       .catch((error) => {
         dispatch(requestFailed(error.message));
       });

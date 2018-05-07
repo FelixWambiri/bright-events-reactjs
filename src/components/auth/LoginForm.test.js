@@ -2,6 +2,13 @@ import { mount, shallow } from 'enzyme';
 import expect from 'expect';
 import LoginForm from './LoginForm';
 import React from 'react';
+import enzymify from 'expect-enzyme';
+import Enzyme from 'enzyme/build/index';
+import Adapter from 'enzyme-adapter-react-16/build/index';
+
+
+expect.extend(enzymify());
+Enzyme.configure({ adapter: new Adapter() });
 
 function setup(loading = false, loggedIn = false) {
   const props = {
@@ -21,9 +28,5 @@ describe('Test Login Form works', () => {
     expect(wrapper.find('.ui.centered.header').text()).toEqual('Login');
     expect(wrapper.find('form').length).toBe(1);
   });
-  // it('button should ', function () {
-  //     const wrapper = setup(true)
-  //     expect(wrapper.find('.ui.fluid.primary.button'))
-  // });
 });
 

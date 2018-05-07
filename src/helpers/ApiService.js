@@ -1,5 +1,6 @@
 import { categoriesURL, eventsURL, loginURL } from '../constants/urls';
 import AuthService from './AuthService';
+import fetch from 'cross-fetch';
 
 export default {
   user: {
@@ -22,10 +23,10 @@ export default {
 
 
 function status(response) {
-    if (response.status >= 200 && response.status < 300) {
-        return Promise.resolve(response.json());
-    }
-    return Promise.reject(response.json());
+  if (response.status >= 200 && response.status < 300) {
+    return Promise.resolve(response.json());
+  }
+  return Promise.reject(response.json());
 }
 
 

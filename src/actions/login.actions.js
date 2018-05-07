@@ -15,9 +15,9 @@ const requestFailed = error => ({
   error,
 });
 export const doLogin = (email, password) => (dispatch) => {
-    console.log("email is ", email, password)
+  console.log('email is ', email, password);
   dispatch(requestLogin());
-  ApiService.user.login({ email, password })
+ return  ApiService.user.login({ email, password })
     .then((response) => {
       const token = response.token;
       dispatch(loginSuccess(token));
@@ -25,7 +25,12 @@ export const doLogin = (email, password) => (dispatch) => {
       history.replace('/dashboard');
     })
     .catch((response) => {
-      response.then(error => dispatch(requestFailed(error.message)));
+      try {
+        response.then(error => dispatch(requestFailed(error.message)));
+      } catch (e) {
+        dispatch(requestFailed('Could not connect to the server'));
+      }
+
       history.replace('/login');
     });
 };

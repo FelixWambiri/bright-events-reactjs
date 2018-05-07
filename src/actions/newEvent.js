@@ -12,10 +12,10 @@ export const savedEvent = () => ({
 });
 
 export const saveEvent = (event, category) => {
-  const new_event = Object.assign({}, event, { category });
+  const newEvent = Object.assign({}, event, { category });
   return (dispatch) => {
     dispatch(savingEvent());
-    ApiService.events.save(new_event)
+    ApiService.events.save(newEvent)
       .then(() => {
         dispatch(savedEvent());
         history.replace('/');

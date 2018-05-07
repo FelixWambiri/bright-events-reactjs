@@ -8,7 +8,7 @@ const categoriesFetched = categories => ({
 });
 export const fetchCategories = () => (dispatch) => {
   dispatch(requestStarted());
-  ApiService.categories.fetch()
+  return ApiService.categories.fetch()
     .then((response) => {
       dispatch(categoriesFetched(response.categories));
     })

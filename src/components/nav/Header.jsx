@@ -38,7 +38,7 @@ class Header extends Component {
       <div style={theme.root}>
         <AppBar position="static" style={theme.style.appBar}>
           <Toolbar>
-            <IconButton className="" color="inherit" aria-label="Menu" onClick={() => dispatch(toggleDrawer(open))} >
+            <IconButton className="menu-toggler" color="inherit" aria-label="Menu" onClick={() => dispatch(toggleDrawer(open))} >
               <MenuIcon />
             </IconButton>
 

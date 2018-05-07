@@ -18,7 +18,7 @@ const Event = (props) => {
 
   const mediaURL = image ? `${IMAGE_BASE_URL}${image}` : event;
   return (
-    <Grid item md={4} lg={3} sm={1} xs={12}>
+    <Grid item md={4} lg={3} xs={12}>
       <Card style={theme.card}>
         <img alt={name} src={mediaURL} style={theme.media} />
         <CardContent>
