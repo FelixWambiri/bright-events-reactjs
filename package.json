@@ -26,10 +26,12 @@
     "google-maps": "^3.2.1",
     "history": "^4.7.2",
     "ignore-styles": "^5.0.1",
+    "isomorphic-fetch": "^2.2.1",
     "jest-enzyme": "^6.0.0",
     "jquery": "^3.3.1",
     "jsdom": "^11.9.0",
     "jsdom-global": "^3.0.2",
+    "jsonwebtoken": "^8.2.1",
     "jwt-decode": "^2.2.0",
     "material-ui": "^1.0.0-beta.35",
     "material-ui-icons": "^1.0.0-beta.35",
@@ -60,7 +62,8 @@
     "redux-thunk": "^2.2.0",
     "semantic-ui-react": "^0.79.0",
     "sinon": "^4.5.0",
-    "typeface-roboto": "^0.0.54"
+    "typeface-roboto": "^0.0.54",
+    "whatwg-fetch": "latest"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -2,7 +2,7 @@ import {
   FETCH_EVENTS_REQUEST, FETCH_EVENTS_SUCCESS, FETCH_MY_EVENTS_SUCCESS, RSVP_FAILED, RSVP_LOADING, RSVP_SUCCESS,
   SHOW_SINGLE_EVENT, UPDATE_EVENT_SUCCESS,
 } from '../constants/action_types';
-import fetch from 'cross-fetch';
+import 'isomorphic-fetch';
 import { requestFailed, requestStarted } from './api.actions';
 import MapService from '../helpers/MapService';
 import { fetchedCoordinates } from './map.actions';
@@ -17,28 +17,26 @@ export const savedEvent = () => ({
   type: UPDATE_EVENT_SUCCESS,
 });
 
-export const requestEvents = () => ({
-  type: FETCH_EVENTS_REQUEST,
-});
 
 
-const fetchMyEventsSuccessful = events => ({
+
+export const fetchMyEventsSuccessful = events => ({
   type: FETCH_MY_EVENTS_SUCCESS,
   events,
 });
 
-const receiveEvents = events =>
+export const receiveEvents = events =>
   ({
     type: FETCH_EVENTS_SUCCESS,
     events,
     loading: false,
   });
-const receiveSingleEvent = event =>
+export const receiveSingleEvent = event =>
   ({
     type: SHOW_SINGLE_EVENT,
     event,
   });
-const rsvpSuccess = () =>
+export const rsvpSuccess = () =>
   ({
     type: RSVP_SUCCESS,
   });
@@ -55,7 +53,9 @@ const rsvpFailed = error => ({
 export const fetchEvents = () => (dispatch) => {
   dispatch(requestStarted());
   return fetch(eventsURL)
-    .then(response => response.json())
+    .then((response) => {
+      return response.json();
+    })
     .then(json => dispatch(receiveEvents(json.events)))
     .catch((error) => {
       dispatch(requestFailed(error.message));
@@ -92,7 +92,7 @@ export const rsvp = (event) => {
   };
   return (dispatch) => {
     dispatch(rsvpLoading());
-    ApiService.events.rsvp(data)
+   return ApiService.events.rsvp(data)
       .then(() => {
         dispatch(rsvpSuccess());
       })
@@ -131,13 +131,9 @@ export const updateEvent = (event) => {
 export const deleteEvent = eventId => (dispatch) => {
   dispatch(requestStarted());
   return ApiService.events.delete(eventId)
-    .then((response) => {
-      if (!response.ok) {
-        return response.text().then((text) => { throw Error(text); });
-      }
-      dispatch(rsvpSuccess());
-      return response.json();
-    })
+    .then(response => (response.error ?
+      dispatch(requestFailed(response.error)) :
+      dispatch(rsvpSuccess())))
     .catch((response) => {
       try {
         return response.then(error => dispatch(requestFailed(error.message)));
@@ -153,9 +149,6 @@ export const fetchSingleEvent = (id, includeGuests = true) => {
     dispatch(requestStarted());
     return fetch(`${eventsURL}${id}`)
       .then((response) => {
-        if (!response.ok) {
-          return response.text().then((text) => { throw Error(text); });
-        }
         return response.json();
       })
       .then(json => fetchCoordinates(json.event.address)

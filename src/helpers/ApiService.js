@@ -1,6 +1,6 @@
 import { categoriesURL, eventsURL, loginURL } from '../constants/urls';
 import AuthService from './AuthService';
-import fetch from 'cross-fetch';
+import 'isomorphic-fetch';
 
 export default {
   user: {

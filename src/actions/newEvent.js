@@ -15,7 +15,8 @@ export const saveEvent = (event, category) => {
   const newEvent = Object.assign({}, event, { category });
   return (dispatch) => {
     dispatch(savingEvent());
-    ApiService.events.save(newEvent)
+    console.log("the event is ", event)
+   return ApiService.events.save(newEvent)
       .then(() => {
         dispatch(savedEvent());
         history.replace('/');
