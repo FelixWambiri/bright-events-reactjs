@@ -18,7 +18,7 @@ const SignupForm = (props) => {
   return (
     <div className="col-md-4 offset-md-4 col-sm-12 col-xs-12">
       <div className="ui raised centered segment column">
-        <h3 className="ui centered header">Login</h3>
+        <h3 className="ui centered header">Create An Account</h3>
         <hr />
         <form onSubmit={submit}>
           <div className="ui fluid input ">

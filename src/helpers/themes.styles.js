@@ -2,8 +2,6 @@ export const defaultColor = {
   appBar: {
     background: 'linear-gradient(90deg, #05aaa3 0%, #64d98b 50%, #92ed8d 100%)',
     borderRadius: 1,
-
-
   },
   button: {
     background: 'linear-gradient(90deg, #05aaa3 0%, #64d98b 50%, #92ed8d 100%)',
@@ -13,6 +11,7 @@ export const defaultColor = {
     maxWidth: 400,
     maxHeight: 400,
     borderRadius: 7,
+    marginLeft: 10,
   },
   description: {
     width: '100%',
@@ -40,6 +39,7 @@ export const lightSeaGreen = {
     maxWidth: 500,
     maxHeight: 500,
     borderRadius: 7,
+    marginLeft: 10,
   },
 
   description: {
@@ -68,6 +68,7 @@ export const byzantine = {
     maxWidth: 500,
     maxHeight: 500,
     borderRadius: 7,
+    marginLeft: 10,
   },
   media: {
     maxWidth: 500,
@@ -94,6 +95,7 @@ export const androidGreen = {
     maxWidth: 500,
     maxHeight: 500,
     borderRadius: 7,
+    marginLeft: 10,
   },
   media: {
     maxWidth: 500,
