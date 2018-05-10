@@ -9,7 +9,7 @@ import {
   FETCH_MY_EVENTS_SUCCESS, LOGIN_SUCCESS,
   REQUEST_FAILED, REQUEST_LOGIN,
   REQUEST_STARTED, RSVP_LOADING, RSVP_SUCCESS, SHOW_SINGLE_EVENT, UPDATE_EVENT_SUCCESS,
-} from '../constants/action_types';
+} from '../../constants/action_types';
 import {
   deleteEvent,
   fetchEvents,
@@ -19,11 +19,11 @@ import {
   rsvp,
   savedEvent,
   updateEvent,
-} from './events';
-import { eventWithMapResponse, testEvents, testSingleEvent } from '../helpers/testSampleData';
+} from '../../actions/events';
+import { eventWithMapResponse, testEvents, testSingleEvent } from '../../helpers/testSampleData';
 import nock from 'nock';
-import { doLogin } from './login.actions';
-import { requestStarted } from './api.actions';
+import { doLogin } from '../../actions/login.actions';
+import { requestStarted } from '../../actions/api.actions';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);

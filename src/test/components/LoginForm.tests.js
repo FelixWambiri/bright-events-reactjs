@@ -1,6 +1,6 @@
 import { mount, shallow } from 'enzyme';
 import expect from 'expect';
-import LoginForm from './LoginForm';
+import LoginForm from '../../components/auth/LoginForm';
 import React from 'react';
 import enzymify from 'expect-enzyme';
 import Enzyme from 'enzyme/build/index';

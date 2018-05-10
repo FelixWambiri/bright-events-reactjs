@@ -3,8 +3,8 @@ import nock from 'nock';
 import expect from 'expect';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
-import { fetchCategories } from './categories.actions';
-import { CATEGORIES_FETCHED, REQUEST_FAILED, REQUEST_STARTED } from '../constants/action_types';
+import { fetchCategories } from '../../actions/categories.actions';
+import { CATEGORIES_FETCHED, REQUEST_FAILED, REQUEST_STARTED } from '../../constants/action_types';
 
 const mockStore = configureMockStore([thunk]);
 

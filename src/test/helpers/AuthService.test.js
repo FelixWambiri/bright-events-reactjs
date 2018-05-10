@@ -4,9 +4,9 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import JWT from 'jsonwebtoken';
 import expect from 'expect';
-import AuthService from './AuthService';
-import { REQUEST_FAILED, REQUEST_STARTED } from '../constants/action_types';
-import { fetchEvents } from '../actions/events';
+import AuthService from '../../helpers/AuthService';
+import { REQUEST_FAILED, REQUEST_STARTED } from '../../constants/action_types';
+import { fetchEvents } from '../../actions/events';
 
 describe('Mock events async actions', () => {
   const generateToken = () => {

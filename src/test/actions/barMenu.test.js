@@ -1,7 +1,7 @@
 import expect from 'expect';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
-import { toggleMenu } from './barMenu';
+import { toggleMenu } from '../../actions/barMenu';
 
 const middleware = [thunk];
 const mockStore = configureMockStore(middleware);

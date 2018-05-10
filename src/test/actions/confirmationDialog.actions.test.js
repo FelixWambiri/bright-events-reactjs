@@ -1,5 +1,5 @@
-import { TOGGLE_DIALOG } from '../constants/action_types';
-import { toggleDialog } from './confirmationDialogs.actions';
+import { TOGGLE_DIALOG } from '../../constants/action_types';
+import { toggleDialog } from '../../actions/confirmationDialogs.actions';
 import expect from 'expect'
 
 describe('Testing deletion confirmation modal', () => {

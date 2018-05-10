@@ -6,9 +6,9 @@ import configureMockStore from 'redux-mock-store';
 import {
   REQUEST_FAILED,
   REQUEST_STARTED,
-} from '../constants/action_types';
+} from '../../constants/action_types';
 import localStorage from 'mock-local-storage';
-import { myEvents } from '../actions/events';
+import { myEvents } from '../../actions/events';
 
 const mockStore = configureMockStore([thunk]);
 

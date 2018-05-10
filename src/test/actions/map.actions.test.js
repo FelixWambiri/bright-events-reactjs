@@ -2,8 +2,8 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import fetchMock from 'fetch-mock';
 import expect from 'expect';
-import { FETCH_MAP_SUCCESS, REQUEST_FAILED, REQUEST_STARTED } from '../constants/action_types';
-import { fetchCoordinates } from './map.actions';
+import { FETCH_MAP_SUCCESS, REQUEST_FAILED, REQUEST_STARTED } from '../../constants/action_types';
+import { fetchCoordinates } from '../../actions/map.actions';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);

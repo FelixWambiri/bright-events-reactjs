@@ -1,7 +1,7 @@
-import { TOGGLE_DRAWER} from '../constants/action_types';
-import { toggleDialog } from './confirmationDialogs.actions';
+import { TOGGLE_DRAWER} from '../../constants/action_types';
+import { toggleDialog } from '../../actions/confirmationDialogs.actions';
 import expect from 'expect';
-import {toggleDrawer} from "./drawer";
+import {toggleDrawer} from "../../actions/drawer";
 
 describe('Testing deletion confirmation modal', () => {
   it('changes state to open', () => {
