@@ -74,7 +74,8 @@
     "eject": "react-scripts eject",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^3.3.15",
