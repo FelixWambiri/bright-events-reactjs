@@ -1,4 +1,5 @@
-import Geocode from 'react-geocode';
+import Geocode from '../plugins/geocode-react';
+
 Geocode.setApiKey('AIzaSyD2VmJLaKQpTdow188zsahY20a-bZ0pnAw');
 export default address => Geocode.fromAddress(address).then(status);
 function status(response) {
