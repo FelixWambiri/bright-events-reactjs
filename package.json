@@ -67,7 +67,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build CI=false",
     "test": "NODE_ENV=test nyc  mocha --verbose --require babel-core/register --require ignore-styles --reporter spec setupTests.js --require mock-local-storage --recursive   \"./src/**/**/*.test.js\"",
     "test:debug": "react-scripts --inspect-brk test --runInBand --env=jsdom",
     "test:watch": "npm test -- --watch",
