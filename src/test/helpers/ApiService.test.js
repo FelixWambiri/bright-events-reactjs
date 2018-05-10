@@ -2,6 +2,7 @@
 import nock from 'nock';
 import expect from 'expect';
 import thunk from 'redux-thunk';
+import fetchMock from 'fetch-mock';
 import configureMockStore from 'redux-mock-store';
 import {
   REQUEST_FAILED,
@@ -21,18 +22,15 @@ describe('Tests events actions', () => {
   afterEach(() => {
     nock.cleanAll();
   });
-  it('It shows error on ', () => {
+  it('It shows error on failed fetch events', () => {
     const payload = 'Network connectivity error';
-    const expectedActions = [
-      { type: REQUEST_STARTED },
-      { type: REQUEST_FAILED, error: 'Network Request Failed' },
-    ];
-    const store = mockStore({ error: '' }, expectedActions);
-    nock('http://localhost:5000/api/v1')
-      .get('/events/my-events')
-      .reply(200, 'awesome').log(console.log);
+    const expectedActions = [{ type: 'REQUEST_STARTED' }, { events: undefined, type: 'FETCH_MY_EVENTS_SUCCESS' }];
+    const store = mockStore({ error: '' });
+    fetchMock
+      .getOnce('http://localhost:5000/api/v1/events/my-events', { error: '', headers: { 'content-type': 'application/json' } });
+
     store.dispatch(myEvents()).then(() => {
       expect(store.getActions()).toEqual(expectedActions);
-    });
+    }).catch(error => console.log('the ezra is ', error));
   });
 });

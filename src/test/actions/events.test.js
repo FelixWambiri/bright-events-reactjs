@@ -8,7 +8,7 @@ import {
   FETCH_EVENTS_SUCCESS, FETCH_MAP_SUCCESS,
   FETCH_MY_EVENTS_SUCCESS, LOGIN_SUCCESS,
   REQUEST_FAILED, REQUEST_LOGIN,
-  REQUEST_STARTED, RSVP_LOADING, RSVP_SUCCESS, SHOW_SINGLE_EVENT, UPDATE_EVENT_SUCCESS,
+  REQUEST_STARTED, RSVP_LOADING, RSVP_SUCCESS, SAVE_EVENT_SUCCESS, SHOW_SINGLE_EVENT, UPDATE_EVENT_SUCCESS,
 } from '../../constants/action_types';
 import {
   deleteEvent,
@@ -24,6 +24,7 @@ import { eventWithMapResponse, testEvents, testSingleEvent } from '../../helpers
 import nock from 'nock';
 import { doLogin } from '../../actions/login.actions';
 import { requestStarted } from '../../actions/api.actions';
+import { saveEvent } from '../../actions/newEvent';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -238,6 +239,18 @@ describe('Mock events async actions', () => {
         event: {},
       };
       expect(receiveSingleEvent({})).toEqual(expectedAction);
+    });
+    it('Mock saving event', () => {
+        const expectedAction = [
+            { type: REQUEST_STARTED },
+            { type: SAVE_EVENT_SUCCESS },
+        ];
+      const store = mockStore({ error: '/' }, expectedAction);
+      fetchMock.postOnce('http://localhost:5000/api/v1/events/', {});
+
+      store.dispatch(saveEvent({}, '')).then(() => {
+        expect(store.getEvents()).toEqual(expectedAction);
+      });
     });
   });
 });

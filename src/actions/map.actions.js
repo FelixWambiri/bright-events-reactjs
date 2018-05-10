@@ -9,12 +9,13 @@ export const fetchedCoordinates = coordinates => ({
 
 export const fetchCoordinates = address => (dispatch) => {
   dispatch(requestStarted());
- return MapService(address)
+  return MapService(address)
     .then((resp) => {
       const { lat, lng } = resp.results[0].geometry.location;
       dispatch(fetchedCoordinates({ lat, lng }));
     })
     .catch((error) => {
+        console.log("th ere ", error)
       dispatch(requestFailed(`Could Not Show Map For <b>${address}</b>`));
     });
 };

@@ -30,4 +30,19 @@ describe('map async actions', () => {
       expect(store.getActions()).toEqual(expectedActions);
     });
   });
+  it('Fetches the map', () => {
+    const address = 'dar es salaam';
+    fetchMock
+      .mock('https://maps.google.com/maps/api/geocode/json?address=dar%20es%20salaam&key=AIzaSyD2VmJLaKQpTdow188zsahY20a-bZ0pnAw', { });
+    // coordinates: { lat: 0.3, lng: 89 }, headers: { 'content-type': 'application/json' }
+    // .mock(`https://maps.google.com/maps/api/geocode/json?address=${address}&key=AIzaSyD2VmJLaKQpTdow188zsahY20a-bZ0pnAw`, { coordinates: { lat: 0.3, lng: 89 }, headers: { 'content-type': 'application/json' } });
+
+
+    const expectedActions = [{ type: 'REQUEST_STARTED' }, { error: 'Could Not Show Map For <b>dar es salaam</b>', type: 'REQUEST_FAILED' }];
+    const store = mockStore({ coordinates: {} });
+
+    return store.dispatch(fetchCoordinates('dar es salaam')).then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
 });

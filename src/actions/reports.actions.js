@@ -11,7 +11,7 @@ const reportsFetchSuccess = data => ({
 
 export const fetchReports = () => (dispatch) => {
   dispatch(requestStarted());
-  ApiService.events.reports()
+ return  ApiService.events.reports()
     .then((response) => {
       dispatch(reportsFetchSuccess(response));
       history.replace('/dashboard');

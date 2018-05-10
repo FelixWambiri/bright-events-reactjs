@@ -18,8 +18,6 @@ export const savedEvent = () => ({
 });
 
 
-
-
 export const fetchMyEventsSuccessful = events => ({
   type: FETCH_MY_EVENTS_SUCCESS,
   events,
@@ -53,9 +51,7 @@ const rsvpFailed = error => ({
 export const fetchEvents = () => (dispatch) => {
   dispatch(requestStarted());
   return fetch(eventsURL)
-    .then((response) => {
-      return response.json();
-    })
+    .then(response => response.json())
     .then(json => dispatch(receiveEvents(json.events)))
     .catch((error) => {
       dispatch(requestFailed(error.message));
@@ -92,7 +88,7 @@ export const rsvp = (event) => {
   };
   return (dispatch) => {
     dispatch(rsvpLoading());
-   return ApiService.events.rsvp(data)
+    return ApiService.events.rsvp(data)
       .then(() => {
         dispatch(rsvpSuccess());
       })
@@ -148,9 +144,7 @@ export const fetchSingleEvent = (id, includeGuests = true) => {
   return (dispatch) => {
     dispatch(requestStarted());
     return fetch(`${eventsURL}${id}`)
-      .then((response) => {
-        return response.json();
-      })
+      .then(response => response.json())
       .then(json => fetchCoordinates(json.event.address)
         .then((data) => {
           dispatch(fetchedCoordinates(data));
