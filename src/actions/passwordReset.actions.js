@@ -37,6 +37,7 @@ export const changePassword = (data, token) => (dispatch) => {
   return ApiService.user.changePassword(data, token)
     .then((response) => {
       dispatch(requestSuccess());
+      history.replace('/login')
       return response;
     })
     .catch((response) => {
