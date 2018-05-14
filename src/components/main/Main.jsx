@@ -9,6 +9,9 @@ import Login from '../auth/Login';
 import Dashboard from '../dashboard/Dashboard';
 import MyEvents from '../my-events/MyEvents';
 import EditEvent from '../events/edit-event/EditEvent';
+import ResetPassword from '../auth/resetPassword/ResetPassword';
+import ChangePassword from '../auth/changePassword/ChangePassword';
+import EmailSent from '../auth/resetPassword/EmailSent';
 
 const Main = () => (
   <main style={{ padding: 10 }}>
@@ -22,6 +25,9 @@ const Main = () => (
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/my-events" component={MyEvents} />
       <Route path="/events/:id/edit" component={EditEvent} />
+      <Route path="/reset-password" component={ResetPassword} />
+      <Route path="/change-password/:token" component={ChangePassword} />
+      <Route path="/email-sent" component={EmailSent} />
       <Route component={NotFound} />
     </Switch>
   </main>

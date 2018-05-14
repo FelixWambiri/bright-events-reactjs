@@ -16,6 +16,7 @@ class Home extends React.Component {
   componentDidMount() {
     this.props.fetchEvents();
   }
+  
 
   render() {
     const { events, loading, error } = this.props;

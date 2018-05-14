@@ -55,9 +55,11 @@ export default (props) => {
             </div>
                 }
           <div className="ui bottom attached warning message">
+            <Link to="/reset-password"> Reset Password </Link>
+          </div>
+          <div className="ui bottom attached warning message">
                     Don't Have An Account? <Link to="/register">Sign up</Link>
           </div>
-
         </form>
       </div>
     </div>
