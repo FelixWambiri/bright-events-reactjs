@@ -5,6 +5,7 @@ export const SHOW_SINGLE_EVENT = 'SHOW_SINGLE_EVENT';
 // Navigation drawer actions
 export const TOGGLE_DRAWER = 'TOGGLE_DRAWER';
 export const TOGGLE_MENU = 'TOGGLE_MENU';
+export const TOGGLE_SEARCH = 'TOGGLE_SEARCH';
 
 // Delete dialog actions
 export const TOGGLE_DIALOG = 'TOGGLE_DIALOG';
@@ -43,4 +44,8 @@ export const REQUEST_SUCCESS = 'REQUEST_SUCCESS';
 export const EMAIL_SENT = 'EMAIL_SENT';
 export const RESET_TOKEN_ERROR = 'RESET_TOKEN_ERROR';
 export const TOKEN_VERIFIED = 'TOKEN_VERIFIED';
+
+export const SEARCH_SUCCESS = 'SEARCH_SUCCESS';
+export const SEARCH_NOT_FOUND = 'SEARCH_NOT_FOUND';
+export const SEARCH_REQUEST = 'SEARCH_REQUEST';
 

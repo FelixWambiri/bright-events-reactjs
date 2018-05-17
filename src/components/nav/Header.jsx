@@ -1,10 +1,10 @@
 import { AppBar, Drawer, IconButton, Menu, MenuItem, Toolbar, Typography } from 'material-ui';
 import Fade from 'material-ui/transitions/Fade';
 import AccountCircle from 'material-ui-icons/AccountCircle';
+import SearchIcon from 'material-ui-icons/Search';
 import React, { Component } from 'react';
 import MenuIcon from 'material-ui-icons/Menu';
 import { Link } from 'react-router-dom';
-
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { changeTheme } from '../../actions/theme.picker.actions';
@@ -13,11 +13,14 @@ import SideNav from './SideNav';
 import { toggleMenu } from '../../actions/barMenu';
 import AuthService from '../../helpers/AuthService';
 import ThemePickerService from '../../helpers/ThemePickerService';
+import { toggleSearch } from '../../actions/searchBar.actions';
+import Search from './Search';
 
 class Header extends Component {
   constructor(props) {
     super(props);
     this.toggleMenu = this.toggleMenu.bind(this);
+    this.toggleSearch = this.toggleSearch.bind(this);
     this.Auth = new AuthService();
     this.themeService = new ThemePickerService();
   }
@@ -25,14 +28,19 @@ class Header extends Component {
 
   componentWillMount() {
     this.props.dispatch(changeTheme(this.themeService.getCurrent()));
+    console.log("the event is", this.props)
   }
+
 
   toggleMenu(element = null) {
     this.props.dispatch(toggleMenu(this.props.menuOpen, element ? element.target : element));
   }
+  toggleSearch() {
+    this.props.dispatch(toggleSearch(this.props.searchBarOpen));
+  }
   render() {
     const {
-      theme, dispatch, open, menuOpen, element,
+      theme, dispatch, open, menuOpen, element, searchBarOpen,searchLoading
     } = this.props;
     return (
       <div style={theme.root}>
@@ -45,7 +53,22 @@ class Header extends Component {
             <Typography variant="title" style={theme.title}>
                             Bright Events
             </Typography>
+            {
+                  searchBarOpen &&
+                  <Search />
+              }
+
+            {/*<IconButton*/}
+              {/*style={{ display: searchBarOpen ? 'none' : '' }}*/}
+              {/*aria-owns={element ? 'fade-menu' : null}*/}
+              {/*aria-haspopup="true"*/}
+              {/*color="inherit"*/}
+              {/*onClick={el => this.toggleSearch()}*/}
+            {/*>*/}
+              {/*<SearchIcon />*/}
+            {/*</IconButton>*/}
             <IconButton
+              style={{ display: searchBarOpen ? 'none' : '' }}
               aria-owns={element ? 'fade-menu' : null}
               aria-haspopup="true"
               color="inherit"
@@ -108,6 +131,7 @@ const mapStateToProps = state => ({
   menuOpen: state.menuOpen.open,
   element: state.menuOpen.element,
   theme: state.theme,
+  searchBarOpen: state.searchBarOpen,
 });
 
 Header.propTypes = {

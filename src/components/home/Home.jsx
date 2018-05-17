@@ -6,6 +6,9 @@ import { fetchEvents } from '../../actions/events';
 import '../../assets/css/bootstrap-grid.css';
 import { Link } from 'react-router-dom';
 import AuthService from '../../helpers/AuthService';
+import SearchBar from '../nav/SearchBar';
+import Search from '../nav/Search';
+import Warning from '../Warning';
 
 class Home extends React.Component {
   constructor(props) {
@@ -16,38 +19,19 @@ class Home extends React.Component {
   componentDidMount() {
     this.props.fetchEvents();
   }
-  
+
 
   render() {
-    const { events, loading, error } = this.props;
-    if (loading) {
-      return (
-        <div className="col-4 offset-4">
-          <CircularProgress />
-        </div>
-
-      );
-    }
-    if (error.length !== 0) {
-      return (
-        <Snackbar
-          anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'center',
-                    }}
-          open
-          autoHideDuration={6000}
-          message={<span>{error}</span>}
-          action={[
-            <Button key="retry" color="secondary" size="small" onClick={() => this.props.fetchEvents()}>
-                            Retry
-            </Button>,
-                    ]}
-        />
-      );
-    }
+    const {
+      events, loading, error, searchNotFound,
+    } = this.props;
     return (
       <div className="" style={{ marginTop: 12, marginLeft: 0 }}>
+        <Search />
+        {
+              searchNotFound &&
+              <Warning message={searchNotFound} />
+          }
         {
                     (events.length > 0 ? <EventsList events={events} /> :
                     <div className="ui warning floating message">
@@ -66,6 +50,7 @@ const mapStateToProps = state => ({
   events: state.events,
   loading: state.loading,
   error: state.error,
+  searchNotFound: state.searchNotFound,
 });
 const mapDispatchToProps = dispatch => ({
   fetchEvents: () => dispatch(fetchEvents()),

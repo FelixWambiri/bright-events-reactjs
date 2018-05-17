@@ -17,16 +17,24 @@ import guests from '../reducers/guests.reducer';
 import myEvents from '../reducers/my-events.reducer';
 import resetError from '../reducers/resetTokenError';
 import resetToken from '../reducers/resetToken';
+import searchBarOpen from '../reducers/searchBar.reducer';
+import searchLoading from '../reducers/searchLoading';
+import searchResults from '../reducers/search.reducers';
+import searchNotFound from '../reducers/searchNotfound.reducer';
 
 export default combineReducers({
   events,
   error,
   resetError,
   resetToken,
+  searchBarOpen,
   loading,
   showEvent,
   theme,
   myEvents,
+  searchLoading,
+  searchResults,
+  searchNotFound,
   guests,
   drawerOpen,
   menuOpen,

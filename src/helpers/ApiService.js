@@ -1,10 +1,9 @@
-import {BASE_URL, categoriesURL, CHANGE_URL, eventsURL, loginURL, RESET_URL, VERIFY_URL} from '../constants/urls';
+import { categoriesURL, CHANGE_URL, eventsURL, loginURL, RESET_URL, VERIFY_URL } from '../constants/urls';
 import AuthService from './AuthService';
 import 'isomorphic-fetch';
 
 function send(data = {}, method = 'POST', auth = false, url) {
-
-  console.log(`Sending ${method} Request to ${url} `)
+  console.log(`Sending ${method} Request to ${url} `);
   const authService = new AuthService();
   return fetch(url, {
     method,
@@ -85,6 +84,7 @@ export default {
     reports: () => send({}, 'GET', true, `${eventsURL}reports`),
     myEvents: () => send({}, 'GET', true, `${eventsURL}my-events`),
     update: event => update(event, 'PUT', true, eventsURL + event.id),
+    search: (query,type) => send({}, 'GET', false, `${eventsURL}${type}?q=${query}`),
 
   },
   categories: {
