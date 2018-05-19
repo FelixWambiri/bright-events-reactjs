@@ -11,12 +11,13 @@ class SearchBar extends Component {
       query: '',
       criteria: 'search',
     };
+    this.handleSearch = this.handleSearch.bind(this)
   }
   handleSearch(e) {
     e.preventDefault();
+    const {value} = e.target
     const { searchEvent } = this.props;
-    const { query, criteria } = this.state;
-    searchEvent(query, criteria);
+    searchEvent(value);
   }
   render() {
     const options = [
@@ -26,9 +27,9 @@ class SearchBar extends Component {
 
     return (
       <div className="col-md-6 offset-md-3 col-sm-12 " raised>
-        <form action="" onSubmit={this.handleSearch.bind(this)}>
+        <form>
           <Input fluid type="text" placeholder="Search..." action style={{ height: 52, marginBottom: 12 }}>
-            <input onChange={input => this.setState({ query: input.target.value })} />
+            <input onChange={this.handleSearch} />
             <Select
               onChange={(input, { value }) => this.setState({ criteria: value })}
               compact

@@ -12,6 +12,7 @@ import { eventsURL } from '../constants/urls';
 import { doFetchGuests } from './guests.action';
 
 import history from '../helpers/history';
+import {searchSuccess} from "./searching.actions";
 
 export const savedEvent = () => ({
   type: UPDATE_EVENT_SUCCESS,
@@ -52,7 +53,10 @@ export const fetchEvents = () => (dispatch) => {
   dispatch(requestStarted());
   return fetch(eventsURL)
     .then(response => response.json())
-    .then(json => dispatch(receiveEvents(json.events)))
+    .then(json =>{
+        dispatch(receiveEvents(json.events))
+        dispatch(searchSuccess(json.events))
+    } )
     .catch((error) => {
       dispatch(requestFailed(error.message));
     });

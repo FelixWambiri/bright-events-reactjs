@@ -1,7 +1,6 @@
 import { AppBar, Drawer, IconButton, Menu, MenuItem, Toolbar, Typography } from 'material-ui';
 import Fade from 'material-ui/transitions/Fade';
 import AccountCircle from 'material-ui-icons/AccountCircle';
-import SearchIcon from 'material-ui-icons/Search';
 import React, { Component } from 'react';
 import MenuIcon from 'material-ui-icons/Menu';
 import { Link } from 'react-router-dom';
@@ -28,7 +27,6 @@ class Header extends Component {
 
   componentWillMount() {
     this.props.dispatch(changeTheme(this.themeService.getCurrent()));
-    console.log("the event is", this.props)
   }
 
 

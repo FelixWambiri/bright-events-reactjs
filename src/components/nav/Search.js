@@ -1,4 +1,4 @@
-import { searchEvents } from '../../actions/searching.actions';
+import {searchEvents, searchLocal} from '../../actions/searching.actions';
 import SearchBar from './SearchBar';
 import { connect } from 'react-redux';
 import { fetchEvents } from '../../actions/events';
@@ -10,7 +10,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  searchEvent: (query,type) => dispatch(searchEvents(query,type)),
+  // searchEvent: (query,type) => dispatch(searchEvents(query,type)),
+  searchEvent: (query) => dispatch(searchLocal(query)),
   fetchEvents: () => dispatch(fetchEvents()),
 });
 
