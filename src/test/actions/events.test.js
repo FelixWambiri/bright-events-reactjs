@@ -25,6 +25,7 @@ import nock from 'nock';
 import { doLogin } from '../../actions/login.actions';
 import { requestStarted } from '../../actions/api.actions';
 import { saveEvent } from '../../actions/newEvent';
+import {BASE_URL, eventsURL} from "../../constants/urls";
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -62,7 +63,7 @@ describe('Mock events async actions', () => {
       },
     ];
     const store = mockStore({ events: [] }, expectedActions);
-    fetchMock.mock('http://localhost:5000/api/v1/events/', () => {
+    fetchMock.mock(eventsURL, () => {
       throw new Error('Network Request Failed');
     });
     store.dispatch(fetchEvents()).then(() => {
@@ -89,7 +90,7 @@ describe('Mock events async actions', () => {
       { type: REQUEST_FAILED, error: 'Network Request Failed' },
     ];
     const store = mockStore({ error: '' }, expectedActions);
-    nock('http://localhost:5000/api/v1')
+    nock(BASE_URL)
       .get('/events/my-events')
       .replyWithError(payload).log(console.log);
     store.dispatch(myEvents()).then(() => {
@@ -99,10 +100,9 @@ describe('Mock events async actions', () => {
   it('It shows single event ', () => {
     const store = mockStore({ event: {} }, eventWithMapResponse);
     fetchMock.getOnce(
-      'http://localhost:5000/api/v1/events/87',
+      `${eventsURL}87`,
       { event: testSingleEvent, headers: { 'content-type': 'application/json' } },
     );
-    fetchMock.put('http://test.com', 200);
     store.dispatch(fetchSingleEvent(87, false)).then((res) => {
       expect(store.getActions()).toEqual(eventWithMapResponse);
     });
@@ -124,7 +124,7 @@ describe('Mock events async actions', () => {
       { type: UPDATE_EVENT_SUCCESS },
     ];
     const store = mockStore({ event: {} }, expectedActions);
-    nock('http://localhost:5000/api/v1')
+    nock(BASE_URL)
       .put('/events/87')
       .replyWithError('Could not find an event with id 87').log(console.log);
     store.dispatch(updateEvent(87, false)).then(() => {
@@ -138,7 +138,7 @@ describe('Mock events async actions', () => {
     ];
     localStorage.clear();
     const store = mockStore({ error: 'Invalid Token , Please Login again' }, expectedActions);
-    fetchMock.mock('http://localhost:5000/api/v1/events/20', () => {
+    fetchMock.mock(`${eventsURL}20`, () => {
       throw new Error('Invalid Token , Please Login again');
     });
     store.dispatch(deleteEvent(20)).then(() => {
@@ -153,7 +153,7 @@ describe('Mock events async actions', () => {
     localStorage.clear();
     const store = mockStore({ error: 'Invalid Token , Please Login again' }, expectedActions);
     // nock('http://localhost:5000/api/v1/events').intercept('/20', 'delete').reply(200).log(console.log);
-    fetchMock.deleteOnce('http://localhost:5000/api/v1/events/20', { error: 'Invalid Token , Please Login again' }, { headers: { 'content-type': 'application/json' } }).catch(500);
+    fetchMock.deleteOnce(`${eventsURL}20`, { error: 'Invalid Token , Please Login again' }, { headers: { 'content-type': 'application/json' } }).catch(500);
     store.dispatch(deleteEvent(20)).then(() => {
       expect(store.getActions()).toEqual(expectedActions);
     });
@@ -165,7 +165,7 @@ describe('Mock events async actions', () => {
     ];
       // localStorage.clear()
     const store = mockStore({ error: '/' }, expectedActions);
-    fetchMock.mock('http://localhost:5000/api/v1/events/20', { error: 'Event With ID 20 is not found' });
+    fetchMock.mock(`${eventsURL}20`, { error: 'Event With ID 20 is not found' });
     store.dispatch(deleteEvent(20)).then((res) => {
       expect(store.getActions()).toEqual(expectedActions);
     }).catch(error => console.log('the error is ', error));
@@ -177,7 +177,7 @@ describe('Mock events async actions', () => {
     ];
       // localStorage.clear()
     const store = mockStore({ error: '/' }, expectedActions);
-    fetchMock.mock('http://localhost:5000/api/v1/events/20', {});
+    fetchMock.mock(`${eventsURL}20`, {});
     store.dispatch(deleteEvent(20)).then((res) => {
       expect(store.getActions()).toEqual(expectedActions);
     }).catch(error => console.log('the error is ', error));
@@ -189,7 +189,7 @@ describe('Mock events async actions', () => {
     ];
       // localStorage.clear()
     const store = mockStore({ error: '/' }, expectedActions);
-    fetchMock.mock('http://localhost:5000/api/v1/events/20', () => {
+    fetchMock.mock(`${eventsURL}20`, () => {
       throw new Error('Network Request Failed');
     });
     store.dispatch(deleteEvent(20)).then((res) => {
@@ -205,7 +205,7 @@ describe('Mock events async actions', () => {
     ];
     // localStorage.clear()
     const store = mockStore({ error: '/' }, expectedActions);
-    fetchMock.mock('http://localhost:5000/api/v1/events/20/rsvp', {});
+    fetchMock.mock(`${eventsURL}20/rsvp`, {});
     store.dispatch(rsvp(20)).then((res) => {
       expect(store.getActions()).toEqual(expectedActions);
     }).catch(error => console.log('the error is ', error));
@@ -246,7 +246,7 @@ describe('Mock events async actions', () => {
             { type: SAVE_EVENT_SUCCESS },
         ];
       const store = mockStore({ error: '/' }, expectedAction);
-      fetchMock.postOnce('http://localhost:5000/api/v1/events/', {});
+      fetchMock.postOnce(eventsURL, {});
 
       store.dispatch(saveEvent({}, '')).then(() => {
         expect(store.getEvents()).toEqual(expectedAction);

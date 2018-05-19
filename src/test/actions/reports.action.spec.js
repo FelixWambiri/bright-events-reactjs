@@ -7,6 +7,7 @@ import expect from 'expect';
 import { doLogin } from '../../actions/login.actions';
 import { doSignup } from '../../actions/signup.actions';
 import { fetchReports } from '../../actions/reports.actions';
+import {BASE_URL, eventsURL} from "../../constants/urls";
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -20,7 +21,7 @@ describe('action creators', () => {
 
   it('should fetch reports', () => {
     // fetchMock.post('http://localhost:5000/api/v1/login', mockResult);
-    fetchMock.mock('http://localhost:5000/api/v1/events/reports', {});
+    fetchMock.mock(`${eventsURL}reports`, {});
     //   fetchMock.sandbox().postOnce('*', {error:'lfkajdflasdfsa'})
     const expectedActions = [{ type: 'REQUEST_STARTED' }, { data: {}, type: 'FETCH_REPORTS_SUCCESS' }, { error: 'An Error Occurred while connecting to the server', type: 'REQUEST_FAILED' }];
     const store = mockStore({

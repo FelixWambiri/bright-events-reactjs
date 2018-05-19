@@ -10,6 +10,7 @@ import {
 } from '../../constants/action_types';
 import localStorage from 'mock-local-storage';
 import { myEvents } from '../../actions/events';
+import {BASE_URL, eventsURL} from '../../constants/urls';
 
 const mockStore = configureMockStore([thunk]);
 
@@ -27,7 +28,7 @@ describe('Tests events actions', () => {
     const expectedActions = [{ type: 'REQUEST_STARTED' }, { events: undefined, type: 'FETCH_MY_EVENTS_SUCCESS' }];
     const store = mockStore({ error: '' });
     fetchMock
-      .getOnce('http://localhost:5000/api/v1/events/my-events', { error: '', headers: { 'content-type': 'application/json' } });
+      .getOnce(`${eventsURL}my-events`, { error: '', headers: { 'content-type': 'application/json' } });
 
     store.dispatch(myEvents()).then(() => {
       expect(store.getActions()).toEqual(expectedActions);
