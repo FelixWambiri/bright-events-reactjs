@@ -26,7 +26,7 @@ export default (props) => {
             <input
               required
               ref={username => usernameInput = username}
-              type="text"
+              type="email"
               name="username"
               placeholder="Email address"
             />

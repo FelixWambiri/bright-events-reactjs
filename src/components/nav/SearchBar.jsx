@@ -30,13 +30,6 @@ class SearchBar extends Component {
         <form>
           <Input fluid type="text" placeholder="Search..." action style={{ height: 52, marginBottom: 12 }}>
             <input onChange={this.handleSearch} />
-            <Select
-              onChange={(input, { value }) => this.setState({ criteria: value })}
-              compact
-              options={options}
-              defaultValue="location"
-            />
-            <Button type="submit" >Search</Button>
           </Input>
         </form>
 

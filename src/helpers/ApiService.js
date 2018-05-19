@@ -9,7 +9,7 @@ function send(data = {}, method = 'POST', auth = false, url) {
     method,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: auth ? `Bearer ${authService.getToken()}` : null,
+      Authorization: auth ? `Bearer ${authService.getToken()}` : null
     },
     body: method === 'POST' ? JSON.stringify(data) : null,
   }).then(status);
@@ -84,7 +84,7 @@ export default {
     reports: () => send({}, 'GET', true, `${eventsURL}reports`),
     myEvents: () => send({}, 'GET', true, `${eventsURL}my-events`),
     update: event => update(event, 'PUT', true, eventsURL + event.id),
-    search: (query,type) => send({}, 'GET', false, `${eventsURL}${type}?q=${query}`),
+    search: (query, type) => send({}, 'GET', false, `${eventsURL}${type}?q=${query}`),
 
   },
   categories: {
