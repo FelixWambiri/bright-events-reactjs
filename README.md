@@ -1,3 +1,6 @@
+
+[![Build Status](https://travis-ci.org/younggeeks/bright-events-reactjs.svg?branch=ft-writing-tests-157378962)](https://travis-ci.org/younggeeks/bright-events-reactjs) [![Coverage Status](https://coveralls.io/repos/github/younggeeks/bright-events-reactjs/badge.svg?branch=ft-writing-tests-157378962)](https://coveralls.io/github/younggeeks/bright-events-reactjs?branch=ft-writing-tests-157378962)
+
 Bright events provides a platform for event organizers to create and manage different types of events while making them easily accessible to target markets
 
 ## Table of Contents

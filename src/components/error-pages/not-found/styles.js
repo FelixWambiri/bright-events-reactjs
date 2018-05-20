@@ -1,5 +1,5 @@
 export default {
-    mgt:{
-        marginTop:20
-    }
-}
+  mgt: {
+    marginTop: 20,
+  },
+};
