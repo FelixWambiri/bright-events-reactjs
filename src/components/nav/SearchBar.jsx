@@ -20,15 +20,10 @@ class SearchBar extends Component {
     searchEvent(value);
   }
   render() {
-    const options = [
-      { key: 'location', text: 'Location', value: 'location' },
-      { key: 'search', text: 'Category', value: 'search' },
-    ];
-
     return (
-      <div className="col-md-6 offset-md-3 col-sm-12 " raised>
+      <div className="col-md-6 offset-md-3 col-sm-12 ">
         <form>
-          <Input fluid type="text" placeholder="Search..." action style={{ height: 52, marginBottom: 12 }}>
+          <Input fluid type="text" placeholder="Search..."  style={{ height: 52, marginBottom: 12 }}>
             <input onChange={this.handleSearch} />
           </Input>
         </form>
