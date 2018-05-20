@@ -15,12 +15,15 @@ const Event = (props) => {
     theme, name, description, id, image,
   } = props;
 
+  const defaultImage = (e) => {
+    e.target.src = event;
+  };
 
   const mediaURL = image ? `${IMAGE_BASE_URL}${image}` : event;
   return (
     <Grid item md={4} lg={3} sm={1} xs={12}>
-      <Card style={theme.card} raised={true}>
-        <img alt={name} src={mediaURL} style={theme.media} />
+      <Card style={theme.card} raised>
+        <img alt={name} src={mediaURL} onError={defaultImage} style={theme.media} />
         <CardContent>
           <h5> {name.toUpperCase()}</h5>
           <Description description={description} theme={theme.description} />
