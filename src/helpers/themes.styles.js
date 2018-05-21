@@ -12,6 +12,7 @@ export const defaultColor = {
     maxHeight: 400,
     borderRadius: 7,
     marginLeft: 10,
+    marginBottom: 20,
   },
   description: {
     width: '100%',
@@ -40,6 +41,7 @@ export const lightSeaGreen = {
     maxHeight: 500,
     borderRadius: 7,
     marginLeft: 10,
+    marginBottom: 20,
   },
 
   description: {
@@ -69,6 +71,7 @@ export const byzantine = {
     maxHeight: 500,
     borderRadius: 7,
     marginLeft: 10,
+    marginBottom: 20,
   },
   media: {
     maxWidth: 500,
@@ -96,6 +99,7 @@ export const androidGreen = {
     maxHeight: 500,
     borderRadius: 7,
     marginLeft: 10,
+    marginBottom: 20,
   },
   media: {
     maxWidth: 500,
