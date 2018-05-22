@@ -3,9 +3,8 @@ import { Link } from 'react-router-dom';
 
 export default (props) => {
   const {
-    classes, doLogin, history, error, loading, isLoggedIn,
+    classes, doLogin, history, error, loading, isLoggedIn, togglePassword, showPassword,
   } = props;
-
   if (isLoggedIn()) {
     history.push('/dashboard');
   }
@@ -32,14 +31,15 @@ export default (props) => {
             />
           </div>
           <br />
-          <div className="ui fluid input ">
+          <div className="ui fluid icon input ">
             <input
               required
               ref={password => passwordInput = password}
-              type="password"
+              type={`${showPassword?'text':'password'}`}
               placeholder="Strong Password "
               name="password"
             />
+            <i className={`${showPassword?'hide':'unhide'} link icon`}  onClick={() => togglePassword(showPassword)} />
           </div>
           <br />
           <div className="field">

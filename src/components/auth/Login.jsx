@@ -4,10 +4,10 @@ import { withStyles } from 'material-ui';
 import { connect } from 'react-redux';
 import { doLogin } from '../../actions/login.actions';
 import '../../assets/css/bootstrap-grid.css';
-
 import AuthService from '../../helpers/AuthService';
 import authStyles from './authStyles';
 import LoginForm from './LoginForm';
+import { togglePasswordInput } from '../../actions/password.switcher.action';
 
 class Login extends Component {
   constructor(props) {
@@ -23,10 +23,12 @@ class Login extends Component {
 const mapStateToProps = state => ({
   loading: state.loading,
   error: state.error,
+  showPassword: state.showPassword,
 });
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   doLogin: (username, password) => dispatch(doLogin(username, password)),
   isLoggedIn: () => new AuthService().loggedIn(),
+  togglePassword: (open) => dispatch(togglePasswordInput(open)),
 });
 export default compose(
   withStyles(authStyles),

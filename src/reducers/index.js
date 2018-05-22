@@ -21,6 +21,7 @@ import searchBarOpen from '../reducers/searchBar.reducer';
 import searchLoading from '../reducers/searchLoading';
 import searchResults from '../reducers/search.reducers';
 import searchNotFound from '../reducers/searchNotfound.reducer';
+import showPassword from '../reducers/password.switcher.reducer';
 
 export default combineReducers({
   events,
@@ -35,6 +36,7 @@ export default combineReducers({
   searchLoading,
   searchResults,
   searchNotFound,
+  showPassword,
   guests,
   drawerOpen,
   menuOpen,
