@@ -12,6 +12,7 @@ import EditEvent from '../events/edit-event/EditEvent';
 import ResetPassword from '../auth/resetPassword/ResetPassword';
 import ChangePassword from '../auth/changePassword/ChangePassword';
 import EmailSent from '../auth/resetPassword/EmailSent';
+import Rsvps from "../rsvps/Rsvps";
 
 const Main = () => (
   <main style={{ padding: 10 }}>
@@ -28,6 +29,7 @@ const Main = () => (
       <Route path="/reset-password" component={ResetPassword} />
       <Route path="/change-password/:token" component={ChangePassword} />
       <Route path="/email-sent" component={EmailSent} />
+      <Route path="/my-rsvps" component={Rsvps} />
       <Route component={NotFound} />
     </Switch>
   </main>

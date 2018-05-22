@@ -67,11 +67,11 @@ class SideNav extends Component {
                 </ListItemIcon>
                 <ListItemText primary="My Events" />
               </ListItem>
-              <ListItem button>
+              <ListItem button component={Link} to="/my-rsvps">
                 <ListItemIcon>
                   <FavIcon />
                 </ListItemIcon>
-                <ListItemText primary="RSVP" />
+                <ListItemText  primary="RSVP" />
               </ListItem>
             </List>
           }
