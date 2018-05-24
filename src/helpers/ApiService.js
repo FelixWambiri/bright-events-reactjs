@@ -83,6 +83,7 @@ export default {
     rsvp: data => send(data, 'POST', true, `${eventsURL}${data.event}/rsvp`),
     reports: () => send({}, 'GET', true, `${eventsURL}reports`),
     myEvents: () => send({}, 'GET', true, `${eventsURL}my-events`),
+    myRsvps: () => send({}, 'GET', true, `${eventsURL}my-rsvps`),
     update: event => update(event, 'PUT', true, eventsURL + event.id),
     search: (query, type) => send({}, 'GET', false, `${eventsURL}${type}?q=${query}`),
 

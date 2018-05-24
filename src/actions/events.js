@@ -1,6 +1,13 @@
 import {
-  FETCH_EVENTS_REQUEST, FETCH_EVENTS_SUCCESS, FETCH_MY_EVENTS_SUCCESS, RSVP_FAILED, RSVP_LOADING, RSVP_SUCCESS,
-  SHOW_SINGLE_EVENT, UPDATE_EVENT_SUCCESS,
+    FETCH_EVENTS_REQUEST,
+    FETCH_EVENTS_SUCCESS,
+    FETCH_MY_EVENTS_SUCCESS,
+    FETCH_MY_RSVPS_SUCCESS,
+    RSVP_FAILED,
+    RSVP_LOADING,
+    RSVP_SUCCESS,
+    SHOW_SINGLE_EVENT,
+    UPDATE_EVENT_SUCCESS,
 } from '../constants/action_types';
 import 'isomorphic-fetch';
 import { requestFailed, requestStarted } from './api.actions';
@@ -12,7 +19,7 @@ import { eventsURL } from '../constants/urls';
 import { doFetchGuests } from './guests.action';
 
 import history from '../helpers/history';
-import {searchSuccess} from "./searching.actions";
+import { searchSuccess } from './searching.actions';
 
 export const savedEvent = () => ({
   type: UPDATE_EVENT_SUCCESS,
@@ -22,6 +29,10 @@ export const savedEvent = () => ({
 export const fetchMyEventsSuccessful = events => ({
   type: FETCH_MY_EVENTS_SUCCESS,
   events,
+});
+export const fetchMyRsvpsSuccess = events => ({
+  type: FETCH_MY_RSVPS_SUCCESS,
+  myRsvps: events,
 });
 
 export const receiveEvents = events =>
@@ -53,10 +64,10 @@ export const fetchEvents = () => (dispatch) => {
   dispatch(requestStarted());
   return fetch(eventsURL)
     .then(response => response.json())
-    .then(json =>{
-        dispatch(receiveEvents(json.events))
-        dispatch(searchSuccess(json.events))
-    } )
+    .then((json) => {
+      dispatch(receiveEvents(json.events));
+      dispatch(searchSuccess(json.events));
+    })
     .catch((error) => {
       dispatch(requestFailed(error.message));
     });
@@ -81,6 +92,16 @@ export const myEvents = () => (dispatch) => {
       } catch (error) {
         dispatch(requestFailed('Network Request Failed'));
       }
+    });
+};
+export const myRsvps = () => (dispatch) => {
+  dispatch(requestStarted());
+  return ApiService.events.myRsvps()
+    .then((response) => {
+      dispatch(fetchMyRsvpsSuccess(response.events));
+    })
+    .catch((response) => {
+      dispatch(requestFailed(response.message));
     });
 };
 

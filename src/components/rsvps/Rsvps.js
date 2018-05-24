@@ -1,12 +1,13 @@
-import RsvpList from "./RsvpList";
-import {connect} from "react-redux";
+import RsvpList from './RsvpList';
+import { connect } from 'react-redux';
+import { myRsvps } from '../../actions/events';
 
-const mapStateToProps = state=>({
+const mapStateToProps = state => ({
+  myRsvps:state.myRsvps
+});
 
-})
+const mapDispatchToProps = dispatch => ({
+  fetchMyRsvps: () => dispatch(myRsvps()),
+});
 
-const mapDisptchToProps = dispatch=>({
-
-})
-
-export default connect(mapStateToProps, mapDisptchToProps)(RsvpList)
+export default connect(mapStateToProps, mapDispatchToProps)(RsvpList);

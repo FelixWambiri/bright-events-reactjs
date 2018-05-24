@@ -22,6 +22,7 @@ import searchLoading from '../reducers/searchLoading';
 import searchResults from '../reducers/search.reducers';
 import searchNotFound from '../reducers/searchNotfound.reducer';
 import showPassword from '../reducers/password.switcher.reducer';
+import myRsvps from '../reducers/myRsvps.reducer';
 
 export default combineReducers({
   events,
@@ -29,6 +30,7 @@ export default combineReducers({
   resetError,
   resetToken,
   searchBarOpen,
+  myRsvps,
   loading,
   showEvent,
   theme,
