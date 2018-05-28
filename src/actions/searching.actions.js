@@ -2,7 +2,7 @@ import history from '../helpers/history';
 import ApiService from '../helpers/ApiService';
 import { clearError, requestFailed, requestStarted } from './api.actions';
 import { SEARCH_NOT_FOUND, SEARCH_REQUEST, SEARCH_SUCCESS } from '../constants/action_types';
-import { receiveEvents } from './events';
+import {fetchEvents, receiveEvents} from './events';
 
 export const searchRequest = () => ({ type: SEARCH_REQUEST });
 export const searchSuccess = events => ({ type: SEARCH_SUCCESS, events });
@@ -32,11 +32,13 @@ export const searchEvents = (query, type) => (dispatch) => {
   return ApiService.events.search(query, type)
     .then((response) => {
       dispatch(receiveEvents(response.events));
+      dispatch(clearError())
       return response;
     })
     .catch((response) => {
       try {
         response.then(error => dispatch(searchNotFound(error.message)));
+        dispatch(fetchEvents(1,4));
       } catch (error) {
         dispatch(requestFailed('An Error Occurred while connecting to the server'));
       }

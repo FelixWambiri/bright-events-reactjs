@@ -1,16 +1,16 @@
 import {
-    FETCH_EVENTS_REQUEST,
-    FETCH_EVENTS_SUCCESS,
-    FETCH_MY_EVENTS_SUCCESS,
-    FETCH_MY_RSVPS_SUCCESS,
-    RSVP_FAILED,
-    RSVP_LOADING,
-    RSVP_SUCCESS,
-    SHOW_SINGLE_EVENT,
-    UPDATE_EVENT_SUCCESS,
+  FETCH_EVENTS_REQUEST,
+  FETCH_EVENTS_SUCCESS,
+  FETCH_MY_EVENTS_SUCCESS,
+  FETCH_MY_RSVPS_SUCCESS,
+  RSVP_FAILED,
+  RSVP_LOADING,
+  RSVP_SUCCESS,
+  SHOW_SINGLE_EVENT,
+  UPDATE_EVENT_SUCCESS,
 } from '../constants/action_types';
 import 'isomorphic-fetch';
-import { requestFailed, requestStarted } from './api.actions';
+import {clearError, requestFailed, requestStarted} from './api.actions';
 import MapService from '../helpers/MapService';
 import { fetchedCoordinates } from './map.actions';
 import ApiService from '../helpers/ApiService';
@@ -35,13 +35,13 @@ export const fetchMyRsvpsSuccess = events => ({
   myRsvps: events,
 });
 
-export const receiveEvents = (events,hasNext,loadMore) =>
+export const receiveEvents = (events, hasNext, loadMore) =>
   ({
     type: FETCH_EVENTS_SUCCESS,
     events,
     loading: false,
-      loadMore,
-      hasNext
+    loadMore,
+    hasNext,
   });
 export const receiveSingleEvent = event =>
   ({
@@ -62,24 +62,25 @@ const rsvpFailed = error => ({
   error,
 });
 
-export const fetchEvents = (page,items, loadMore=false) => (dispatch) => {
+export const fetchEvents = (page, items, loadMore = false) => (dispatch) => {
   dispatch(requestStarted());
-  return fetch(eventsURL+`?page=${page}&limit=${items}`)
+  return fetch(`${eventsURL}?page=${page}&limit=${items}`)
     .then(response => response.json())
     .then((json) => {
-      dispatch(receiveEvents(json.events,json.has_next,loadMore));
+      dispatch(receiveEvents(json.events, json.has_next, loadMore));
       dispatch(searchSuccess(json.events));
     })
     .catch((error) => {
       dispatch(requestFailed(error.message));
     });
 };
-export const loadMoreEvents = (page,items) => (dispatch) => {
+export const loadMoreEvents = (page, items) => (dispatch) => {
   dispatch(requestStarted());
-  return fetch(eventsURL+`?page=${page}&limit=${items}`)
+  dispatch(clearError())
+  return fetch(`${eventsURL}?page=${page}&limit=${items}`)
     .then(response => response.json())
     .then((json) => {
-      dispatch(receiveEvents(json.events,json.has_next));
+      dispatch(receiveEvents(json.events, json.has_next));
       dispatch(searchSuccess(json.events));
     })
     .catch((error) => {

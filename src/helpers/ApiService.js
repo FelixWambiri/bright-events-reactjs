@@ -85,7 +85,7 @@ export default {
     myEvents: () => send({}, 'GET', true, `${eventsURL}my-events`),
     myRsvps: () => send({}, 'GET', true, `${eventsURL}my-rsvps`),
     update: event => update(event, 'PUT', true, eventsURL + event.id),
-    search: (query, type) => send({}, 'GET', false, `${eventsURL}${type}?q=${query}`),
+    search: (query) => send({}, 'GET', false, `${eventsURL}search?q=${query}`),
 
   },
   categories: {

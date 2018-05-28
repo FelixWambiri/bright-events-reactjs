@@ -7,25 +7,33 @@ let criteriaInput;
 class SearchBar extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      query: '',
-      criteria: 'search',
-    };
     this.handleSearch = this.handleSearch.bind(this);
+    this.doSearching = this.doSearching.bind(this);
+    this.searchDebounced = debounce(this.doSearching, 400);
   }
   handleSearch(e) {
-    e.preventDefault();
-    const { value } = e.target;
+    const query = e.target.value;
+    if (query && query.length > 0) {
+      this.searchDebounced(query);
+    }
+    if (query === 0) {
+      this.props.fetchEvents();
+    }
+    // e.preventDefault();
+    // const { value } = e.target;
+    // const { searchEvent } = this.props;
+    // searchEvent(value);
+  }
+  doSearching(query) {
     const { searchEvent } = this.props;
-    searchEvent(value);
+    searchEvent(query);
   }
   render() {
     return (
       <div className="col-md-6 offset-md-3 col-sm-12 ">
         <form>
-          <Input fluid loading icon="user" placeholder="Search..." style={{ height: 52, marginBottom: 12 }}  onChange={this.handleSearch}/>
+          <Input fluid  icon="search" placeholder="Search..." style={{ height: 52, marginBottom: 12 }} onChange={this.handleSearch} />
         </form>
-
       </div>
 
     );
