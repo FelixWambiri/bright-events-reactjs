@@ -8,11 +8,12 @@ import { connect } from 'react-redux';
 import { IMAGE_BASE_URL } from '../../../constants/urls';
 import event from '../../../assets/img/bright.png';
 import Description from './DescriptionComponet';
+import { Label } from 'semantic-ui-react';
 
 
 const Event = (props) => {
   const {
-    theme, name, description, id, image,
+    theme, name, description, id, image, price,
   } = props;
 
   const defaultImage = (e) => {
@@ -25,6 +26,7 @@ const Event = (props) => {
       <Card style={theme.card} raised>
         <img alt={name} src={mediaURL} onError={defaultImage} style={theme.media} />
         <CardContent>
+          <Label as="b" style={theme.button} ribbon>{price}</Label>
           <h5> {name.toUpperCase()}</h5>
           <Description description={description} theme={theme.description} />
         </CardContent>
@@ -34,6 +36,8 @@ const Event = (props) => {
                         Learn More
           </Button>
         </CardActions>
+
+
       </Card>
     </Grid>
 

@@ -8,8 +8,8 @@ export const defaultColor = {
     color: 'white',
   },
   card: {
-    maxWidth: 400,
-    maxHeight: 400,
+    maxWidth: 500,
+    maxHeight: 500,
     borderRadius: 7,
     marginLeft: 10,
     marginBottom: 20,

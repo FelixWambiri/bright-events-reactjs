@@ -23,7 +23,7 @@ import searchResults from '../reducers/search.reducers';
 import searchNotFound from '../reducers/searchNotfound.reducer';
 import showPassword from '../reducers/password.switcher.reducer';
 import myRsvps from '../reducers/myRsvps.reducer';
-
+import paginator from "../reducers/paginator"
 export default combineReducers({
   events,
   error,
@@ -31,6 +31,7 @@ export default combineReducers({
   resetToken,
   searchBarOpen,
   myRsvps,
+    paginator,
   loading,
   showEvent,
   theme,

@@ -35,11 +35,13 @@ export const fetchMyRsvpsSuccess = events => ({
   myRsvps: events,
 });
 
-export const receiveEvents = events =>
+export const receiveEvents = (events,hasNext,loadMore) =>
   ({
     type: FETCH_EVENTS_SUCCESS,
     events,
     loading: false,
+      loadMore,
+      hasNext
   });
 export const receiveSingleEvent = event =>
   ({
@@ -60,12 +62,24 @@ const rsvpFailed = error => ({
   error,
 });
 
-export const fetchEvents = () => (dispatch) => {
+export const fetchEvents = (page,items, loadMore=false) => (dispatch) => {
   dispatch(requestStarted());
-  return fetch(eventsURL)
+  return fetch(eventsURL+`?page=${page}&limit=${items}`)
     .then(response => response.json())
     .then((json) => {
-      dispatch(receiveEvents(json.events));
+      dispatch(receiveEvents(json.events,json.has_next,loadMore));
+      dispatch(searchSuccess(json.events));
+    })
+    .catch((error) => {
+      dispatch(requestFailed(error.message));
+    });
+};
+export const loadMoreEvents = (page,items) => (dispatch) => {
+  dispatch(requestStarted());
+  return fetch(eventsURL+`?page=${page}&limit=${items}`)
+    .then(response => response.json())
+    .then((json) => {
+      dispatch(receiveEvents(json.events,json.has_next));
       dispatch(searchSuccess(json.events));
     })
     .catch((error) => {

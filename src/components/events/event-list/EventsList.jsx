@@ -8,6 +8,7 @@ class EventsList extends Component {
     const { events } = this.props;
     return (
       <Grid container >
+
         {
                     [...events].map(event => <Event key={event.id} {...event} />)
                 }

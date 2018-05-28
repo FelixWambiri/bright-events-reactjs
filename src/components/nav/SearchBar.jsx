@@ -11,11 +11,11 @@ class SearchBar extends Component {
       query: '',
       criteria: 'search',
     };
-    this.handleSearch = this.handleSearch.bind(this)
+    this.handleSearch = this.handleSearch.bind(this);
   }
   handleSearch(e) {
     e.preventDefault();
-    const {value} = e.target
+    const { value } = e.target;
     const { searchEvent } = this.props;
     searchEvent(value);
   }
@@ -23,9 +23,7 @@ class SearchBar extends Component {
     return (
       <div className="col-md-6 offset-md-3 col-sm-12 ">
         <form>
-          <Input fluid type="text" placeholder="Search..."  style={{ height: 52, marginBottom: 12 }}>
-            <input onChange={this.handleSearch} />
-          </Input>
+          <Input fluid loading icon="user" placeholder="Search..." style={{ height: 52, marginBottom: 12 }}  onChange={this.handleSearch}/>
         </form>
 
       </div>
