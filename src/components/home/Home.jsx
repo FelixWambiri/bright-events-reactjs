@@ -10,6 +10,8 @@ import AuthService from '../../helpers/AuthService';
 import Search from '../nav/Search';
 import Warning from '../Warning';
 import styles from '../../assets/css/styles.css';
+import CategoryFilter from '../CategoryFilter';
+import { fetchCategories } from '../../actions/categories.actions';
 
 class Home extends React.Component {
   constructor(props) {
@@ -26,6 +28,7 @@ class Home extends React.Component {
   componentDidMount() {
     const { items, page } = this.state;
     this.props.fetchEvents(page, items);
+    this.props.fetchCategories();
   }
 
   loadMore() {
@@ -40,13 +43,15 @@ class Home extends React.Component {
 
 
   render() {
-    console.log("the propsa re'", this.props);
     const {
-      events, loading, error, searchNotFound, theme, hasNext,
+      events, loading, error, searchNotFound, theme, hasNext, categories,
     } = this.props;
     return (
-      <div ref="scroller" style={{ marginTop: 12, marginLeft: 0, height: 110 }} >
-        <Search />
+      <div ref="scroller" style={{ marginTop: 12, marginLeft: 0 }} >
+        <div className="col-md-6 offset-md-3 col-sm-12 ">
+          <Search />
+        </div>
+
         {
               searchNotFound &&
               <Warning message={searchNotFound} />
@@ -74,8 +79,10 @@ const mapStateToProps = state => ({
   error: state.error,
   hasNext: state.paginator.hasNext,
   searchNotFound: state.searchNotFound,
+  categories: state.categories,
 });
 const mapDispatchToProps = dispatch => ({
   fetchEvents: (page, items, loadMore = false) => dispatch(fetchEvents(page, items, loadMore)),
+  fetchCategories: () => dispatch(fetchCategories()),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

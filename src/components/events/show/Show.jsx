@@ -80,9 +80,10 @@ class Show extends Component {
                       {event.description}
                     </p>
                     <div>
-                      <h5>Organiser: {}</h5>
-                      <h5>Price: {event.price} Ksh</h5>
+                      <p>  Organiser <br /><strong>{event.organizer}</strong></p>
+                      <p>Price <br /><strong>{event.price}</strong></p>
                     </div>
+                    <br />
                     <div className="ui buttons">
                       <button className="ui facebook button">
                         <i className="facebook icon" />
@@ -109,9 +110,9 @@ class Show extends Component {
                   <div className="col-md-8 col-xs-12 col-sm-12">
 
                     {
-                                                loading &&
-                                                (typeof coordinates === 'string') ? <Warning message={coordinates} /> :
-                                                <MapComponent coordinates={coordinates} {...event} loading={loading} />
+          loading &&
+          (typeof coordinates === 'string') ? <Warning message={coordinates} /> :
+          <MapComponent coordinates={coordinates} {...event} loading={loading} />
                                             }
                   </div>
                 </div>

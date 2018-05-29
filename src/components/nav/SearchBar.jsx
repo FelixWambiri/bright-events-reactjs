@@ -30,7 +30,7 @@ class SearchBar extends Component {
   }
   render() {
     return (
-      <div className="col-md-6 offset-md-3 col-sm-12 ">
+      <div >
         <form>
           <Input fluid  icon="search" placeholder="Search..." style={{ height: 52, marginBottom: 12 }} onChange={this.handleSearch} />
         </form>
