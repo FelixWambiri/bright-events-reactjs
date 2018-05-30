@@ -1,5 +1,5 @@
-// export const BASE_URL = 'https://bright-event.herokuapp.com/api/v1';
-export const BASE_URL = 'http://localhost:5000/api/v1';
+export const BASE_URL = 'https://bright-event.herokuapp.com/api/v1';
+// export const BASE_URL = 'http://localhost:5000/api/v1';
 // export const BASE_URL = process.env.BASE_URL;
 
 export const loginURL = `${BASE_URL}/auth/login`;
